@@ -16,7 +16,7 @@ local function init()
 
 			local enable = ctx.event == "LspAttach"
 			vim.lsp.inlay_hint.enable(enable, { bufnr = ctx.buf })
-			if enable then vim.api.nvim_buf_clear_namespace(ctx.buf, inlayHintNs, 0, -1) end
+			if not enable then vim.api.nvim_buf_clear_namespace(ctx.buf, inlayHintNs, 0, -1) end
 		end,
 	})
 
