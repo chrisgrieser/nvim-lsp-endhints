@@ -17,6 +17,8 @@ Table of Contents                            *eol-lsp-hints-table-of-contents*
 Aminimal plugin that displays LSP inlay-hints at the end of line, out of your
 way.
 
+
+
 _Color scheme: nightfox.nvim, dawnfox variant_
 
 - |eol-lsp-hints-installation|
