@@ -1,5 +1,5 @@
 <!-- LTeX: enabled=false -->
-# nvim-eol-lsp-hints
+# nvim-eol-lsp-hints 🪧
 <!-- LTeX: enabled=true -->
 <!-- TODO uncomment shields when available in dotfyle.com 
 <a href="https://dotfyle.com/plugins/chrisgrieser/nvim-eol-lsp-hints">
@@ -10,17 +10,13 @@ Display LSP inlay hints at the end of line, out of your way.
 
 <!-- toc -->
 
-- [Features](#features)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Limitations](#limitations)
-- [Credits](#credits)
+- [About the author](#about-the-author)
 
 <!-- tocstop -->
-
-## Features
--
 
 ## Installation
 
@@ -28,6 +24,7 @@ Display LSP inlay hints at the end of line, out of your way.
 -- lazy.nvim
 {
 	"chrisgrieser/nvim-eol-lsp-hints",
+	event = "LspAttach",
 },
 
 -- packer
@@ -40,16 +37,23 @@ use {
 
 ```lua
 -- default settings
-require("eol-lsp-hints").setup ({
-
-})
+require("eol-lsp-hints").setup {
+	icons = {
+		type = "󰜁 ",
+		parameter = "󰏪 ",
+	},
+	label = {
+		padding = 1,
+		marginLeft = 0,
+	},
+}
 ```
 
 ## Usage
-- …
+Just load the plugin.
 
 ## Limitations
-- …
+Disabling/toggling LSP hints is not implemented yet.
 
 <!-- vale Google.FirstPerson = NO -->
 ## About the author

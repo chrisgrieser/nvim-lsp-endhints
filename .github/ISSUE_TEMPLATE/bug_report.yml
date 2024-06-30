@@ -40,21 +40,3 @@ body:
       label: neovim version
       render: Text
     validations: { required: true }
-  - type: textarea
-    id: repro-lua
-    attributes:
-      label: Minimal reproducible config
-      description: Minimal config to reproduce the issue. Save as `repro.lua` and run with `nvim -u repro.lua`
-      render: lua
-      value: |
-        local spec = {
-        	{
-        		"chrisgrieser/nvim-eol-lsp-hints",
-        		opts = {}, -- insert config here
-        	},
-        }
-        --------------------------------------------------------------------------------
-        vim.env.LAZY_STDPATH = "./nvim-repro"
-        load(vim.fn.system("curl -s https://raw.githubusercontent.com/folke/lazy.nvim/main/bootstrap.lua"))()
-        require("lazy.minit").repro { spec = spec }
-    validations: { required: true }
