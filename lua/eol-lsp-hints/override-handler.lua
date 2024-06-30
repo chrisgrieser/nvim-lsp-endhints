@@ -1,5 +1,5 @@
 ---@param inlayHintNs number namespace
-return function(inlayHintNs)
+local function overrideHandler(inlayHintNs)
 	vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, _)
 		local config = require("eol-lsp-hints.config").config
 
@@ -65,4 +65,37 @@ return function(inlayHintNs)
 			})
 		end
 	end
+end
+
+---@param inlayHintNs number namespace
+local function overrideDisableHandler(inlayHintNs)
+	local originalDisableHandler = vim.lsp.inlay_hint.enable
+
+	---@diagnostic disable-next-line: duplicate-set-field intentional override
+	vim.lsp.inlay_hint.enable = function(enable, opts)
+		if enable == false then
+			local buffers = (opts and opts.bufnr) and { opts.bufnr }
+
+			-- HACK if not buffer number provided, disable in all buffers.
+			-- TODO think of a cleaner way to do this?
+			if not buffers then
+				buffers = vim.iter(vim.lsp.get_clients())
+					:map(function(client) return vim.lsp.get_buffers_by_client_id(client.id) end)
+					:flatten()
+					:totable()
+			end
+
+			for _, bufnr in pairs(buffers) do
+				vim.api.nvim_buf_clear_namespace(bufnr, inlayHintNs, 0, -1)
+			end
+		end
+
+		originalDisableHandler(enable, opts)
+	end
+end
+
+---@param inlayHintNs number namespace
+return function(inlayHintNs)
+	overrideHandler(inlayHintNs)
+	overrideDisableHandler(inlayHintNs)
 end

@@ -19,7 +19,6 @@ way.
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Background](#background)
-- [Limitations](#limitations)
 - [About the author](#about-the-author)
 
 <!-- tocstop -->
@@ -66,8 +65,12 @@ The hints use the default highlight group `LspInlayHint`.
 
 ## Usage
 The plugin automatically enables inlay hints when attaching to an LSP, there is
-nothing to do other than loading plugin. This behavior can be disabled with
-`autoEnable = false`.
+nothing to do other than loading plugin. (This behavior can be disabled with
+`autoEnable = false`.)
+
+All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
+same as before. Use those as described in the Neovim documentation to
+enable/disable/toggle hints.
 
 ## Background
 - [The LSP specification stipulates that inlay hints have a fixed position in
@@ -78,9 +81,6 @@ nothing to do other than loading plugin. This behavior can be disabled with
   much the same thing for nvim < 0.10, but it is archived by now. Other than
   being maintained, `nvim-eol-lsp-hints` just overrides the handler introduced
   in nvim 0.10, resulting in a much simpler implementation.
-
-## Limitations
-Disabling LSP hints is not implemented yet.
 
 <!-- vale Google.FirstPerson = NO -->
 ## About the author
