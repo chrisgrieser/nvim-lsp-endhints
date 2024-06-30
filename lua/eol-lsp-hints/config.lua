@@ -15,9 +15,7 @@ local defaultConfig = {
 M.config = defaultConfig
 
 ---@param config? EolLspHints.config
-function M.setup(config)
-	M.config = vim.tbl_deep_extend("force", defaultConfig, config or {})
-end
+function M.setup(config) M.config = vim.tbl_deep_extend("force", defaultConfig, config or {}) end
 
 --------------------------------------------------------------------------------
 return M
