@@ -2,6 +2,8 @@
 local function overrideHandler(inlayHintNs)
 	vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, _)
 		local config = require("eol-lsp-hints.config").config
+		local bufnr = ctx.bufnr or -1
+		if not vim.api.nvim_buf_is_valid(bufnr) then return end
 
 		-- GUARD
 		if not result then return end
@@ -13,7 +15,7 @@ local function overrideHandler(inlayHintNs)
 		end
 
 		-- clear existing hints
-		vim.api.nvim_buf_clear_namespace(ctx.bufnr, inlayHintNs, 0, -1)
+		vim.api.nvim_buf_clear_namespace(bufnr, inlayHintNs, 0, -1)
 
 		-- Collect all hints for each line, so we can sort them by column in the loop
 		-- below. This ensures that the hints are displayed in the correct order.
@@ -59,7 +61,7 @@ local function overrideHandler(inlayHintNs)
 				{ padding .. mergedLabels .. padding, "LspInlayHint" },
 			}
 
-			vim.api.nvim_buf_set_extmark(ctx.bufnr, inlayHintNs, lnum, 0, {
+			vim.api.nvim_buf_set_extmark(bufnr, inlayHintNs, lnum, 0, {
 				virt_text = virtText,
 				virt_text_pos = "eol",
 			})
