@@ -49,7 +49,7 @@ body:
       value: |
         local spec = {
         	{
-        		"%%plugin-repo%%",
+        		"chrisgrieser/nvim-eol-lsp-hints",
         		opts = {}, -- insert config here
         	},
         }

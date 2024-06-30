@@ -1,12 +1,12 @@
 <!-- LTeX: enabled=false -->
-# %%plugin-name%%
+# nvim-eol-lsp-hints
 <!-- LTeX: enabled=true -->
 <!-- TODO uncomment shields when available in dotfyle.com 
-<a href="https://dotfyle.com/plugins/chrisgrieser/%%plugin-name%%">
-<img alt="badge" src="https://dotfyle.com/plugins/chrisgrieser/%%plugin-name%%/shield"/></a>
+<a href="https://dotfyle.com/plugins/chrisgrieser/nvim-eol-lsp-hints">
+<img alt="badge" src="https://dotfyle.com/plugins/chrisgrieser/nvim-eol-lsp-hints/shield"/></a>
 -->
 
-%%plugin-desc%%
+Display LSP inlay hints at the end of line, out of your way.
 
 <!-- toc -->
 
@@ -27,12 +27,12 @@
 ```lua
 -- lazy.nvim
 {
-	"chrisgrieser/%%plugin-name%%",
+	"chrisgrieser/nvim-eol-lsp-hints",
 },
 
 -- packer
 use {
-	"chrisgrieser/%%plugin-name%%",
+	"chrisgrieser/nvim-eol-lsp-hints",
 }
 ```
 
@@ -40,7 +40,7 @@ use {
 
 ```lua
 -- default settings
-require("%%plugin-name-short%%").setup ({
+require("eol-lsp-hints").setup ({
 
 })
 ```
