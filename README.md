@@ -10,8 +10,23 @@ A minimal plugin that displays LSP inlay-hints at the end of line, out of your
 way.
 
 <img alt="Showcase" width=70% src="https://github.com/chrisgrieser/nvim-eol-lsp-hints/assets/73286100/acd538a7-f2ee-4b8e-9c07-bd7c0c4ad20e">
+*Color scheme: nightfox.nvim, dawnfox variant*
+
+<!-- toc -->
+
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Background](#background)
+- [Limitations](#limitations)
+- [About the author](#about-the-author)
+
+<!-- tocstop -->
 
 ## Installation
+**Requirements:**
+- nvim >= 0.10
+- LSP client that supports inlay hints
 
 ```lua
 -- lazy.nvim
@@ -43,11 +58,24 @@ require("eol-lsp-hints").setup {
 }
 ```
 
+The hints use the default highlight group `LspInlayHint`.
+
 ## Usage
-Just load the plugin.
+The plugin automatically enables inlay hints when attaching to an LSP, there is
+nothing to do other than loading it.
+
+## Background
+- [The LSP specification stipulates that inlay hints have a fixed position in
+  the line, which Neovim core follows.](https://github.com/neovim/neovim/issues/28261#issuecomment-2194659088)
+- This plugin overrides the `textDocument/inlayHint` handler to move the hints
+  to the end of the line.
+- [nvim-inlayhint](https://github.com/lvimuser/lsp-inlayhints.nvim) did pretty
+  much the same thing for nvim < 0.10, but it is archived by now. Other than
+  being maintained, `nvim-eol-lsp-hints` just overrides the handler introduced
+  in nvim 0.10, resulting in a much simpler implementation.
 
 ## Limitations
-Disabling/toggling LSP hints is not implemented yet.
+Disabling LSP hints is not implemented yet.
 
 <!-- vale Google.FirstPerson = NO -->
 ## About the author
