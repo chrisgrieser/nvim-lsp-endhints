@@ -11,6 +11,7 @@ local defaultConfig = {
 		padding = 1,
 		marginLeft = 0,
 	},
+	autoEnableHints = true,
 }
 M.config = defaultConfig
 

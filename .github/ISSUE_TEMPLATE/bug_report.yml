@@ -12,6 +12,11 @@ body:
           required: true
         - label: I have read the README.
           required: true
+        - label: >
+            LSP inlay hints do work correctly without this plugin when using
+            `vim.lsp.inlay_hint.enable(true)`. (If not, then the problem lies with your LSP or your LSP
+            configuration, not this plugin.)
+          required: true
   - type: textarea
     id: bug-description
     attributes:

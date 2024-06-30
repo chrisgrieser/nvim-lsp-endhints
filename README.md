@@ -26,7 +26,7 @@ way.
 ## Installation
 **Requirements:**
 - nvim >= 0.10
-- LSP client that supports inlay hints
+- LSP client that supports inlay hints (`textDocument/inlayHint`)
 
 ```lua
 -- lazy.nvim
@@ -44,6 +44,8 @@ use {
 
 ## Configuration
 
+The `.setup()` call it required, and takes an optional table:
+
 ```lua
 -- default settings
 require("eol-lsp-hints").setup {
@@ -55,6 +57,7 @@ require("eol-lsp-hints").setup {
 		padding = 1,
 		marginLeft = 0,
 	},
+	autoEnableHints = true,
 }
 ```
 
@@ -62,7 +65,8 @@ The hints use the default highlight group `LspInlayHint`.
 
 ## Usage
 The plugin automatically enables inlay hints when attaching to an LSP, there is
-nothing to do other than loading it.
+nothing to do other than loading plugin. This behavior can be disabled with
+`autoEnable = false`.
 
 ## Background
 - [The LSP specification stipulates that inlay hints have a fixed position in
