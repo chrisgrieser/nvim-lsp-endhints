@@ -10,6 +10,7 @@ A minimal plugin that displays LSP inlay-hints at the end of line, out of your
 way.
 
 <img alt="Showcase" width=70% src="https://github.com/chrisgrieser/nvim-eol-lsp-hints/assets/73286100/acd538a7-f2ee-4b8e-9c07-bd7c0c4ad20e">
+
 *Color scheme: nightfox.nvim, dawnfox variant*
 
 <!-- toc -->
