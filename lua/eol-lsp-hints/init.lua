@@ -10,7 +10,10 @@ local function init()
 	vim.api.nvim_create_autocmd({ "LspAttach", "LspDetach" }, {
 		group = vim.api.nvim_create_augroup("EolInlayHints", { clear = true }),
 		callback = function(ctx)
-			if not config.autoEnableHints then return end
+			local client = vim.lsp.get_client_by_id(ctx.data.client_id)
+			local inlayHintProvider = client and client.server_capabilities.inlayHintProvider
+			if not inlayHintProvider or not config.autoEnableHints then return end
+
 			local enable = ctx.event == "LspAttach"
 			vim.lsp.inlay_hint.enable(enable, { bufnr = ctx.buf })
 			if enable then vim.api.nvim_buf_clear_namespace(ctx.buf, inlayHintNs, 0, -1) end

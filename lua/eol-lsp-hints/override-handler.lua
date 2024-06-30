@@ -9,6 +9,8 @@ local function overrideHandler(inlayHintNs)
 		if not result then return end
 		local client = vim.lsp.get_client_by_id(ctx.client_id)
 		if not client then return end
+		local inlayHintProvider = client.server_capabilities.inlayHintProvider
+		if not inlayHintProvider then return end
 		if err then
 			vim.notify(vim.inspect(err), vim.log.levels.ERROR)
 			return
@@ -78,7 +80,7 @@ local function overrideDisableHandler(inlayHintNs)
 		if enable == false then
 			local buffers = (opts and opts.bufnr) and { opts.bufnr }
 
-			-- HACK if not buffer number provided, disable in all buffers.
+			-- if not buffer number provided, disable in all buffers.
 			-- TODO think of a cleaner way to do this?
 			if not buffers then
 				buffers = vim.iter(vim.lsp.get_clients())
