@@ -8,16 +8,6 @@
 
 Display LSP inlay hints at the end of line, out of your way.
 
-<!-- toc -->
-
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Limitations](#limitations)
-- [About the author](#about-the-author)
-
-<!-- tocstop -->
-
 ## Installation
 
 ```lua
@@ -25,6 +15,7 @@ Display LSP inlay hints at the end of line, out of your way.
 {
 	"chrisgrieser/nvim-eol-lsp-hints",
 	event = "LspAttach",
+	opts = {},
 },
 
 -- packer
