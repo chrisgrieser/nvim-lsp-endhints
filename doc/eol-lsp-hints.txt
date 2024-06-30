@@ -8,7 +8,6 @@ Table of Contents                            *eol-lsp-hints-table-of-contents*
   - Configuration            |eol-lsp-hints-nvim-eol-lsp-hints--configuration|
   - Usage                            |eol-lsp-hints-nvim-eol-lsp-hints--usage|
   - Background                  |eol-lsp-hints-nvim-eol-lsp-hints--background|
-  - Limitations                |eol-lsp-hints-nvim-eol-lsp-hints--limitations|
   - About the author      |eol-lsp-hints-nvim-eol-lsp-hints--about-the-author|
 
 ==============================================================================
@@ -25,7 +24,6 @@ _Color scheme: nightfox.nvim, dawnfox variant_
 - |eol-lsp-hints-configuration|
 - |eol-lsp-hints-usage|
 - |eol-lsp-hints-background|
-- |eol-lsp-hints-limitations|
 - |eol-lsp-hints-about-the-author|
 
 
@@ -74,8 +72,12 @@ The hints use the default highlight group `LspInlayHint`.
 USAGE                                *eol-lsp-hints-nvim-eol-lsp-hints--usage*
 
 The plugin automatically enables inlay hints when attaching to an LSP, there is
-nothing to do other than loading plugin. This behavior can be disabled with
-`autoEnable = false`.
+nothing to do other than loading plugin. (This behavior can be disabled with
+`autoEnable = false`.)
+
+All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
+same as before. Use those as described in the Neovim documentation to
+enable/disable/toggle hints.
 
 
 BACKGROUND                      *eol-lsp-hints-nvim-eol-lsp-hints--background*
@@ -88,11 +90,6 @@ BACKGROUND                      *eol-lsp-hints-nvim-eol-lsp-hints--background*
     much the same thing for nvim < 0.10, but it is archived by now. Other than
     being maintained, `nvim-eol-lsp-hints` just overrides the handler introduced
     in nvim 0.10, resulting in a much simpler implementation.
-
-
-LIMITATIONS                    *eol-lsp-hints-nvim-eol-lsp-hints--limitations*
-
-Disabling LSP hints is not implemented yet.
 
 
 ABOUT THE AUTHOR          *eol-lsp-hints-nvim-eol-lsp-hints--about-the-author*
