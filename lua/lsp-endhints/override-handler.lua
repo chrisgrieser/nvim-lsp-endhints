@@ -24,7 +24,8 @@ local function overrideHandler(inlayHintNs)
 		local hintLines = vim.iter(result):fold({}, function(acc, hint)
 			local lnum = hint.position.line
 			local col = hint.position.character
-			local label = hint.label[1].value:gsub("^:", ""):gsub(":$", "")
+			local label = type(hint.label) == "string" and hint.label or hint.label[1].value
+			label = label:gsub("^:", ""):gsub(":$", "")
 
 			-- 1: type, 2: parameter -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHintKind
 			local kind = "unknown"
