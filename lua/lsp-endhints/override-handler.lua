@@ -25,8 +25,11 @@ local function overrideHandler(inlayHintNs)
 			local lnum = hint.position.line
 			local col = hint.position.character
 			local label = hint.label[1].value:gsub("^:", ""):gsub(":$", "")
-			-- 1: Type, 2: Parameter -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHintKind
-			local kind = hint.kind == 1 and "Type" or "Parameter"
+
+			-- 1: type, 2: parameter -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHintKind
+			local kind = "unknown"
+			if hint.kind == 1 then kind = "type" end
+			if hint.kind == 2 then kind = "parameter" end
 
 			if not acc[lnum] then acc[lnum] = {} end
 			table.insert(acc[lnum], { label = label, col = col, kind = kind })
@@ -47,8 +50,8 @@ local function overrideHandler(inlayHintNs)
 
 			local mergedLabels = vim.iter(hints)
 				:map(function(hint)
-					if allOfSameKind then return hint.label end
-					local icon = hint.kind == "Type" and config.icons.type or config.icons.parameter
+					if hintsAllParams then return hint.label end
+					local icon = config.icons[hint.kind] or "[?]"
 					return icon .. hint.label
 				end)
 				:join(allOfSameKind and ", " or " ")
