@@ -1,33 +1,33 @@
-*eol-lsp-hints.txt* Auto-generated from README.md. Do not make PRs to this file.
+*lsp-endhints.txt* Auto-generated from README.md. Do not make PRs to this file.
 
 ==============================================================================
-Table of Contents                            *eol-lsp-hints-table-of-contents*
+Table of Contents                             *lsp-endhints-table-of-contents*
 
-1. nvim-eol-lsp-hints                      |eol-lsp-hints-nvim-eol-lsp-hints-|
-  - Installation              |eol-lsp-hints-nvim-eol-lsp-hints--installation|
-  - Configuration            |eol-lsp-hints-nvim-eol-lsp-hints--configuration|
-  - Usage                            |eol-lsp-hints-nvim-eol-lsp-hints--usage|
-  - Background                  |eol-lsp-hints-nvim-eol-lsp-hints--background|
-  - About the author      |eol-lsp-hints-nvim-eol-lsp-hints--about-the-author|
+1. nvim-lsp-endhints                         |lsp-endhints-nvim-lsp-endhints-|
+  - Installation                |lsp-endhints-nvim-lsp-endhints--installation|
+  - Configuration              |lsp-endhints-nvim-lsp-endhints--configuration|
+  - Usage                              |lsp-endhints-nvim-lsp-endhints--usage|
+  - Background                    |lsp-endhints-nvim-lsp-endhints--background|
+  - About the author        |lsp-endhints-nvim-lsp-endhints--about-the-author|
 
 ==============================================================================
-1. nvim-eol-lsp-hints                      *eol-lsp-hints-nvim-eol-lsp-hints-*
+1. nvim-lsp-endhints                         *lsp-endhints-nvim-lsp-endhints-*
 
-Aminimal plugin that displays LSP inlay-hints at the end of line, out of your
-way.
+Minimalplugin that displays LSP inlay hints at the end of the line, rather than
+within the line.
 
 
 
 _Color scheme: nightfox.nvim, dawnfox variant_
 
-- |eol-lsp-hints-installation|
-- |eol-lsp-hints-configuration|
-- |eol-lsp-hints-usage|
-- |eol-lsp-hints-background|
-- |eol-lsp-hints-about-the-author|
+- |lsp-endhints-installation|
+- |lsp-endhints-configuration|
+- |lsp-endhints-usage|
+- |lsp-endhints-background|
+- |lsp-endhints-about-the-author|
 
 
-INSTALLATION                  *eol-lsp-hints-nvim-eol-lsp-hints--installation*
+INSTALLATION                    *lsp-endhints-nvim-lsp-endhints--installation*
 
 **Requirements:** - nvim >= 0.10 - LSP client that supports inlay hints
 (`textDocument/inlayHint`)
@@ -35,25 +35,25 @@ INSTALLATION                  *eol-lsp-hints-nvim-eol-lsp-hints--installation*
 >lua
     -- lazy.nvim
     {
-        "chrisgrieser/nvim-eol-lsp-hints",
+        "chrisgrieser/nvim-lsp-endhints",
         event = "LspAttach",
-        opts = {},
+        opts = {}, -- required, even if empty
     },
     
     -- packer
     use {
-        "chrisgrieser/nvim-eol-lsp-hints",
+        "chrisgrieser/nvim-lsp-endhints",
     }
 <
 
 
-CONFIGURATION                *eol-lsp-hints-nvim-eol-lsp-hints--configuration*
+CONFIGURATION                  *lsp-endhints-nvim-lsp-endhints--configuration*
 
 The `.setup()` call it required, and takes an optional table:
 
 >lua
     -- default settings
-    require("eol-lsp-hints").setup {
+    require("nvim-lsp-endhints").setup {
         icons = {
             type = "󰜁 ",
             parameter = "󰏪 ",
@@ -69,18 +69,18 @@ The `.setup()` call it required, and takes an optional table:
 The hints use the default highlight group `LspInlayHint`.
 
 
-USAGE                                *eol-lsp-hints-nvim-eol-lsp-hints--usage*
+USAGE                                  *lsp-endhints-nvim-lsp-endhints--usage*
 
 The plugin automatically enables inlay hints when attaching to an LSP, there is
-nothing to do other than loading plugin. (This behavior can be disabled with
-`autoEnable = false`.)
+nothing to do other than loading the plugin. (This behavior can be disabled
+with `autoEnable = false`.)
 
 All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
 same as before. Use those as described in the Neovim documentation to
 enable/disable/toggle hints.
 
 
-BACKGROUND                      *eol-lsp-hints-nvim-eol-lsp-hints--background*
+BACKGROUND                        *lsp-endhints-nvim-lsp-endhints--background*
 
 - The LSP specification stipulates that inlay hints have a fixed position in
     the line, which Neovim core follows. <https://github.com/neovim/neovim/issues/28261#issuecomment-2194659088>
@@ -88,11 +88,11 @@ BACKGROUND                      *eol-lsp-hints-nvim-eol-lsp-hints--background*
     to the end of the line.
 - nvim-inlayhint <https://github.com/lvimuser/lsp-inlayhints.nvim> did pretty
     much the same thing for nvim < 0.10, but it is archived by now. Other than
-    being maintained, `nvim-eol-lsp-hints` just overrides the handler introduced
+    being maintained, `nvim-lsp-endhints` just overrides the handler introduced
     in nvim 0.10, resulting in a much simpler implementation.
 
 
-ABOUT THE AUTHOR          *eol-lsp-hints-nvim-eol-lsp-hints--about-the-author*
+ABOUT THE AUTHOR            *lsp-endhints-nvim-lsp-endhints--about-the-author*
 
 In my day job, I am a sociologist studying the social mechanisms underlying the
 digital economy. For my PhD project, I investigate the governance of the app
