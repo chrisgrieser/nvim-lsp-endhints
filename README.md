@@ -6,10 +6,9 @@
 <img alt="badge" src="https://dotfyle.com/plugins/chrisgrieser/nvim-eol-lsp-hints/shield"/></a>
 -->
 
-A minimal plugin that displays LSP inlay-hints at the end of line, out of your
-way.
+Minimal plugin that displays LSP inlay hints at the end of the line, rather than within the line.
 
-<img alt="Showcase" width=70% src="https://github.com/chrisgrieser/nvim-eol-lsp-hints/assets/73286100/acd538a7-f2ee-4b8e-9c07-bd7c0c4ad20e">
+<img alt="Showcase" width=70% src="https://github.com/chrisgrieser/nvim-lsp-endhints/assets/73286100/57894d2f-2c82-4e42-b1e3-ab103c928020">
 
 *Color scheme: nightfox.nvim, dawnfox variant*
 
@@ -33,7 +32,7 @@ way.
 {
 	"chrisgrieser/nvim-lsp-endhints",
 	event = "LspAttach",
-	opts = {},
+	opts = {}, -- required, even if empty
 },
 
 -- packer
@@ -65,7 +64,7 @@ The hints use the default highlight group `LspInlayHint`.
 
 ## Usage
 The plugin automatically enables inlay hints when attaching to an LSP, there is
-nothing to do other than loading plugin. (This behavior can be disabled with
+nothing to do other than loading the plugin. (This behavior can be disabled with
 `autoEnable = false`.)
 
 All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
