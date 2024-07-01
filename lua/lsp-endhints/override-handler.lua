@@ -1,5 +1,9 @@
 ---@param inlayHintNs number namespace
 local function overrideHandler(inlayHintNs)
+	---@param err table
+	---@param result lsp.InlayHint[]?
+	---@param ctx lsp.HandlerContext
+	---@param _ table -- config
 	vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, _)
 		local config = require("lsp-endhints.config").config
 		local bufnr = ctx.bufnr or -1
@@ -24,6 +28,7 @@ local function overrideHandler(inlayHintNs)
 		local hintLines = vim.iter(result):fold({}, function(acc, hint)
 			local lnum = hint.position.line
 			local col = hint.position.character
+			-- label is either string or `InlayHintLabelPart[]` https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHint
 			local label = type(hint.label) == "string" and hint.label or hint.label[1].value
 			label = label:gsub("^:", ""):gsub(":$", "")
 
@@ -76,10 +81,12 @@ end
 local function overrideDisableHandler(inlayHintNs)
 	local originalDisableHandler = vim.lsp.inlay_hint.enable
 
+	--- @param enable boolean|nil true/nil to enable, false to disable
+	--- @param filter? vim.lsp.inlay_hint.enable.Filter
 	---@diagnostic disable-next-line: duplicate-set-field intentional override
-	vim.lsp.inlay_hint.enable = function(enable, opts)
+	vim.lsp.inlay_hint.enable = function(enable, filter)
 		if enable == false then
-			local buffers = (opts and opts.bufnr) and { opts.bufnr }
+			local buffers = (filter and filter.bufnr) and { filter.bufnr }
 
 			-- if not buffer number provided, disable in all buffers.
 			-- TODO think of a cleaner way to do this?
@@ -95,7 +102,7 @@ local function overrideDisableHandler(inlayHintNs)
 			end
 		end
 
-		originalDisableHandler(enable, opts)
+		originalDisableHandler(enable, filter)
 	end
 end
 
