@@ -1,7 +1,7 @@
 local M = {}
 --------------------------------------------------------------------------------
 
----@class EolLspHints.config
+---@class LspEndhints.config
 local defaultConfig = {
 	icons = {
 		type = "󰜁 ",
@@ -15,7 +15,7 @@ local defaultConfig = {
 }
 M.config = defaultConfig
 
----@param config? EolLspHints.config
+---@param config? LspEndhints.config
 function M.setup(config) M.config = vim.tbl_deep_extend("force", defaultConfig, config or {}) end
 
 --------------------------------------------------------------------------------

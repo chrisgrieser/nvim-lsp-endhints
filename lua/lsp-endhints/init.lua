@@ -1,5 +1,5 @@
 local M = {}
-local inlayHintNs = vim.api.nvim_create_namespace("EolInlayHints")
+local inlayHintNs = vim.api.nvim_create_namespace("lspEndhints")
 --------------------------------------------------------------------------------
 
 local function autoEnableHints()
@@ -13,7 +13,7 @@ local function autoEnableHints()
 
 	-- auto-enable/disable on lsp attach/detach
 	vim.api.nvim_create_autocmd({ "LspAttach", "LspDetach" }, {
-		group = vim.api.nvim_create_augroup("EolInlayHints", { clear = true }),
+		group = vim.api.nvim_create_augroup("lspEndhints", { clear = true }),
 		callback = function(ctx)
 			local client = vim.lsp.get_client_by_id(ctx.data.client_id)
 			local inlayHintProvider = client and client.server_capabilities.inlayHintProvider
@@ -26,15 +26,13 @@ local function autoEnableHints()
 	})
 end
 
----@param userConfig? EolLspHints.config
+---@param userConfig? LspEndhints.config
 function M.setup(userConfig)
-	require("eol-lsp-hints.config").setup(userConfig)
-	require("eol-lsp-hints.override-handler")(inlayHintNs)
+	require("lsp-endhints.config").setup(userConfig)
+	require("lsp-endhints.override-handler")(inlayHintNs)
 
 	local config = require("eol-lsp-hints.config").config
-	if config.autoEnableHints then
-		autoEnableHints()
-	end
+	if config.autoEnableHints then autoEnableHints() end
 end
 
 --------------------------------------------------------------------------------

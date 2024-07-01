@@ -1,7 +1,7 @@
 ---@param inlayHintNs number namespace
 local function overrideHandler(inlayHintNs)
 	vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, _)
-		local config = require("eol-lsp-hints.config").config
+		local config = require("lsp-endhints.config").config
 		local bufnr = ctx.bufnr or -1
 		if not vim.api.nvim_buf_is_valid(bufnr) then return end
 

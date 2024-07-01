@@ -1,5 +1,5 @@
 <!-- LTeX: enabled=false -->
-# nvim-eol-lsp-hints 🪧
+# nvim-lsp-endhints 🪧
 <!-- LTeX: enabled=true -->
 <!-- TODO uncomment shields when available in dotfyle.com 
 <a href="https://dotfyle.com/plugins/chrisgrieser/nvim-eol-lsp-hints">
@@ -31,14 +31,14 @@ way.
 ```lua
 -- lazy.nvim
 {
-	"chrisgrieser/nvim-eol-lsp-hints",
+	"chrisgrieser/nvim-lsp-endhints",
 	event = "LspAttach",
 	opts = {},
 },
 
 -- packer
 use {
-	"chrisgrieser/nvim-eol-lsp-hints",
+	"chrisgrieser/nvim-lsp-endhints",
 }
 ```
 
@@ -48,7 +48,7 @@ The `.setup()` call it required, and takes an optional table:
 
 ```lua
 -- default settings
-require("eol-lsp-hints").setup {
+require("nvim-lsp-endhints").setup {
 	icons = {
 		type = "󰜁 ",
 		parameter = "󰏪 ",
@@ -79,7 +79,7 @@ enable/disable/toggle hints.
   to the end of the line.
 - [nvim-inlayhint](https://github.com/lvimuser/lsp-inlayhints.nvim) did pretty
   much the same thing for nvim < 0.10, but it is archived by now. Other than
-  being maintained, `nvim-eol-lsp-hints` just overrides the handler introduced
+  being maintained, `nvim-lsp-endhints` just overrides the handler introduced
   in nvim 0.10, resulting in a much simpler implementation.
 
 <!-- vale Google.FirstPerson = NO -->
