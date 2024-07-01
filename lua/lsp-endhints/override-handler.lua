@@ -41,12 +41,10 @@ local function overrideHandler(inlayHintNs)
 			table.sort(hints, function(a, b) return a.col < b.col end)
 
 			-- merge all labels in a line
-			-- all hints of same type: prepend icons to merged label
-			-- hints of different types: prepend icons to individual label
-			local hintsAllTypes = vim.iter(hints):all(function(hint) return hint.kind == "Type" end)
+			-- all hints parameters: only one icon
+			-- else: prepend icons to individual label
 			local hintsAllParams = vim.iter(hints)
-				:all(function(hint) return hint.kind == "Parameter" end)
-			local allOfSameKind = hintsAllTypes or hintsAllParams
+				:all(function(hint) return hint.kind == "parameter" end)
 
 			local mergedLabels = vim.iter(hints)
 				:map(function(hint)
@@ -54,8 +52,7 @@ local function overrideHandler(inlayHintNs)
 					local icon = config.icons[hint.kind] or "[?]"
 					return icon .. hint.label
 				end)
-				:join(allOfSameKind and ", " or " ")
-			if hintsAllTypes then mergedLabels = config.icons.type .. mergedLabels end
+				:join(hintsAllParams and ", " or " ")
 			if hintsAllParams then mergedLabels = config.icons.parameter .. mergedLabels end
 
 			-- add padding & margin
