@@ -4,10 +4,12 @@
 Table of Contents                             *lsp-endhints-table-of-contents*
 
 1. nvim-lsp-endhints                         |lsp-endhints-nvim-lsp-endhints-|
+  - Table of Content        |lsp-endhints-nvim-lsp-endhints--table-of-content|
   - Installation                |lsp-endhints-nvim-lsp-endhints--installation|
   - Configuration              |lsp-endhints-nvim-lsp-endhints--configuration|
   - Usage                              |lsp-endhints-nvim-lsp-endhints--usage|
   - Background                    |lsp-endhints-nvim-lsp-endhints--background|
+  - FAQ                                  |lsp-endhints-nvim-lsp-endhints--faq|
   - About the author        |lsp-endhints-nvim-lsp-endhints--about-the-author|
 
 ==============================================================================
@@ -20,17 +22,23 @@ within the line.
 
 _Color scheme: nightfox.nvim, dawnfox variant_
 
+
+TABLE OF CONTENT            *lsp-endhints-nvim-lsp-endhints--table-of-content*
+
 - |lsp-endhints-installation|
 - |lsp-endhints-configuration|
 - |lsp-endhints-usage|
 - |lsp-endhints-background|
+- |lsp-endhints-faq|
+    - |lsp-endhints-how-to-display-hints-only-for-the-current-line?|
+    - |lsp-endhints-how-to-enable-inlay-hints-for-a-language?|
 - |lsp-endhints-about-the-author|
 
 
 INSTALLATION                    *lsp-endhints-nvim-lsp-endhints--installation*
 
 **Requirements:** - nvim >= 0.10 - LSP client that supports inlay hints
-(`textDocument/inlayHint`)
+(`textDocument/inlayHint`) - Inlay hints enabled in the config of the LSP
 
 >lua
     -- lazy.nvim
@@ -76,7 +84,7 @@ nothing to do other than loading the plugin. (This behavior can be disabled
 with `autoEnable = false`.)
 
 All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
-same as before. Use those as described in the Neovim documentation to
+same as before. Use them |as described in the Neovim documentation| to
 enable/disable/toggle hints.
 
 
@@ -84,12 +92,93 @@ BACKGROUND                        *lsp-endhints-nvim-lsp-endhints--background*
 
 - The LSP specification stipulates that inlay hints have a fixed position in
     the line, which Neovim core follows. <https://github.com/neovim/neovim/issues/28261#issuecomment-2194659088>
-- This plugin overrides the `textDocument/inlayHint` handler to move the hints
-    to the end of the line.
+- However, for many people, hint being positioned within the line disturbs the
+    flow of vim motions. This is particularly cumbersome for languages with long
+    type hints, such as TypeScript.
 - nvim-inlayhint <https://github.com/lvimuser/lsp-inlayhints.nvim> did pretty
     much the same thing for nvim < 0.10, but it is archived by now. Other than
-    being maintained, `nvim-lsp-endhints` just overrides the handler introduced
-    in nvim 0.10, resulting in a much simpler implementation.
+    being maintained, `nvim-lsp-endhints` just overrides the
+    `textDocument/inlayHint` handler introduced in nvim 0.10, resulting in a much
+    simpler implementation (~170 LoC instead of ~1000 LoC).
+
+
+FAQ                                      *lsp-endhints-nvim-lsp-endhints--faq*
+
+
+HOW TO DISPLAY HINTS ONLY FOR THE CURRENT LINE? ~
+
+One implementation that does not even require this plugin can be found here
+<https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921>.
+
+
+HOW TO ENABLE INLAY HINTS FOR A LANGUAGE? ~
+
+
+  [!NOTE] Not all LSPs support inlay hints. The following list is not exhaustive,
+  there are more LSPs that support inlay hints. Please refer to your LSP’s
+  documentation.
+>lua
+    -- lua-ls
+    require("lspconfig").lua_ls.setup {
+        settings = {
+            Lua = {
+                hint = { enable = true },
+            },
+        },
+    }
+    
+    -- tsserver
+    local inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+    }
+    require("lspconfig").tsserver.setup {
+        settings = {
+            typescript = {
+                inlayHints = inlayHints,
+            },
+            javascript = {
+                inlayHints = inlayHints,
+            },
+        },
+    }
+    
+    -- gopls
+    require("lspconfig").gopls.setup {
+        settings = {
+            hints = {
+                rangeVariableTypes = true,
+                parameterNames = true,
+                constantValues = true,
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                functionTypeParameters = true,
+            },
+        },
+    }
+    
+    -- clangd
+    require("lspconfig").clangd.setup {
+        settings = {
+            clangd = {
+                InlayHints = {
+                    Designators = true,
+                    Enabled = true,
+                    ParameterNames = true,
+                    DeducedTypes = true,
+                },
+                fallbackFlags = { "-std=c++20" },
+            },
+        },
+    }
+<
 
 
 ABOUT THE AUTHOR            *lsp-endhints-nvim-lsp-endhints--about-the-author*
