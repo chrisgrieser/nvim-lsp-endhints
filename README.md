@@ -49,7 +49,7 @@ use {
 
 ## Configuration
 
-The `.setup()` call it required, and takes an optional table:
+The `.setup()` call is required.
 
 ```lua
 -- default settings
@@ -69,14 +69,13 @@ require("nvim-lsp-endhints").setup {
 The hints use the default highlight group `LspInlayHint`.
 
 ## Usage
-The plugin automatically enables inlay hints when attaching to an LSP, there is
-nothing to do other than loading the plugin. (This behavior can be disabled with
-`autoEnable = false`.)
+The plugin by default automatically enables inlay hints when attaching to an LSP, 
+there is nothing to do other than loading the plugin. 
 
 All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
 same as before. Use them [as described in the Neovim
 documentation](https://neovim.io/doc/user/lsp.html#vim.lsp.inlay_hint.enable())
-to enable/disable/toggle hints.
+to enable/disable/toggle hints manually.
 
 ## Background
 - [The LSP specification stipulates that inlay hints have a fixed position in
