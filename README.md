@@ -69,7 +69,7 @@ require("nvim-lsp-endhints").setup {
 The hints use the default highlight group `LspInlayHint`.
 
 ## Usage
-The plugin by default automatically enables inlay hints when attaching to an LSP, 
+By default, the pluginautomatically enables inlay hints when attaching to an LSP, 
 there is nothing to do other than loading the plugin. 
 
 All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
@@ -80,14 +80,14 @@ to enable/disable/toggle hints manually.
 ## Background
 - [The LSP specification stipulates that inlay hints have a fixed position in
   the line, which Neovim core follows.](https://github.com/neovim/neovim/issues/28261#issuecomment-2194659088)
-- However, for many people, hint being positioned within the line disturbs the
-  flow of vim motions. This is particularly cumbersome for languages with long
+- However, for many people, hints being positioned within the line disturbs the
+  flow of vim motions. This is particularly troublesome for languages with long
   type hints, such as TypeScript.
 - [nvim-inlayhint](https://github.com/lvimuser/lsp-inlayhints.nvim) did pretty
   much the same thing for nvim < 0.10, but it is archived by now. Other than
   being maintained, `nvim-lsp-endhints` just overrides the
   `textDocument/inlayHint` handler introduced in nvim 0.10, resulting in a much
-  simpler implementation (~170 LoC instead of ~1000 LoC).
+  simpler and more maintainable implementation (~170 LoC instead of ~1000 LoC).
 
 ## FAQ
 
