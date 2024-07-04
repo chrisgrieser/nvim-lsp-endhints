@@ -72,6 +72,7 @@ local function overrideHandler(inlayHintNs)
 			vim.api.nvim_buf_set_extmark(bufnr, inlayHintNs, lnum, 0, {
 				virt_text = virtText,
 				virt_text_pos = "eol",
+				hl_mode = "combine", -- ensures highlights are combined with the background, see #2
 			})
 		end
 	end
