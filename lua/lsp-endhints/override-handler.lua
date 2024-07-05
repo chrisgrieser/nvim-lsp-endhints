@@ -30,7 +30,7 @@ local function overrideHandler(inlayHintNs)
 			local col = hint.position.character
 			-- label is either string or `InlayHintLabelPart[]` https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHint
 			local label = type(hint.label) == "string" and hint.label or hint.label[1].value
-			label = label:gsub("^:", ""):gsub(":$", "")
+			label = vim.trim(label:gsub("^:", ""):gsub(":$", ""))
 
 			-- 1: type, 2: parameter -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHintKind
 			local kind = "unknown"
