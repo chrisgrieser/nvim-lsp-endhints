@@ -69,7 +69,7 @@ require("nvim-lsp-endhints").setup {
 The hints use the default highlight group `LspInlayHint`.
 
 ## Usage
-By default, the pluginautomatically enables inlay hints when attaching to an LSP, 
+By default, the plugin automatically enables inlay hints when attaching to an LSP, 
 there is nothing to do other than loading the plugin. 
 
 All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
@@ -92,7 +92,10 @@ to enable/disable/toggle hints manually.
 ## FAQ
 
 ### How to display hints only for the current line?
-One implementation that does not even require this plugin [can be found here](https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921).
+That is not supported by the plugin. However, [it only takes a small snippet to
+implement it
+yourself.](https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921)
+(Note that the linked snippet is not compatible with this plugin.)
 
 ### How to enable inlay hints for a language?
 
