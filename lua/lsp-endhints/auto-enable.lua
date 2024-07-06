@@ -1,7 +1,8 @@
----@param inlayHintNs number namespace
-return function(inlayHintNs)
+return function()
 	local config = require("lsp-endhints.config").config
 	if not config.autoEnableHints then return end
+
+	local inlayHintNs = vim.api.nvim_create_namespace("lspEndhints")
 
 	-- initialize in already open buffers (in case of lazy-loading, etc.)
 	vim.iter(vim.lsp.get_clients())

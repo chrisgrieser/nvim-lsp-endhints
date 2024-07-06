@@ -1,5 +1,7 @@
----@param inlayHintNs number namespace
-local function overrideHandler(inlayHintNs)
+local M = {}
+--------------------------------------------------------------------------------
+
+function M.refreshHandler()
 	---@param err table
 	---@param result lsp.InlayHint[]?
 	---@param ctx lsp.HandlerContext
@@ -20,7 +22,7 @@ local function overrideHandler(inlayHintNs)
 			return
 		end
 
-		-- clear existing hints
+		local inlayHintNs = vim.api.nvim_create_namespace("lspEndhints")
 		vim.api.nvim_buf_clear_namespace(bufnr, inlayHintNs, 0, -1)
 
 		-- Collect all hints for each line, so we can sort them by column in the loop
@@ -88,19 +90,18 @@ local function overrideHandler(inlayHintNs)
 	end
 end
 
----@param inlayHintNs number namespace
-local function overrideDisableHandler(inlayHintNs)
+function M.disableHandler()
 	local originalDisableHandler = vim.lsp.inlay_hint.enable
+	local inlayHintNs = vim.api.nvim_create_namespace("lspEndhints")
 
-	--- @param enable boolean|nil true/nil to enable, false to disable
-	--- @param filter? vim.lsp.inlay_hint.enable.Filter
+	---@param enable boolean|nil true/nil to enable, false to disable
+	---@param filter? vim.lsp.inlay_hint.enable.Filter
 	---@diagnostic disable-next-line: duplicate-set-field intentional override
 	vim.lsp.inlay_hint.enable = function(enable, filter)
 		if enable == false then
 			local buffers = (filter and filter.bufnr) and { filter.bufnr }
 
-			-- if not buffer number provided, disable in all buffers.
-			-- TODO think of a cleaner way to do this?
+			-- if no buffer filter provided, disable in all buffers
 			if not buffers then
 				buffers = vim.iter(vim.lsp.get_clients())
 					:map(function(client) return vim.lsp.get_buffers_by_client_id(client.id) end)
@@ -117,8 +118,5 @@ local function overrideDisableHandler(inlayHintNs)
 	end
 end
 
----@param inlayHintNs number namespace
-return function(inlayHintNs)
-	overrideHandler(inlayHintNs)
-	overrideDisableHandler(inlayHintNs)
-end
+--------------------------------------------------------------------------------
+return M

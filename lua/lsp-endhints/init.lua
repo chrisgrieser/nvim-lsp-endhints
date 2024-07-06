@@ -1,12 +1,12 @@
 local M = {}
-local inlayHintNs = vim.api.nvim_create_namespace("lspEndhints")
 --------------------------------------------------------------------------------
 
 ---@param userConfig? LspEndhints.config
 function M.setup(userConfig)
 	require("lsp-endhints.config").setup(userConfig)
-	require("lsp-endhints.override-handler")(inlayHintNs)
-	require("lsp-endhints.auto-enable")(inlayHintNs)
+	require("lsp-endhints.override-handler").refreshHandler()
+	require("lsp-endhints.override-handler").disableHandler()
+	require("lsp-endhints.auto-enable")()
 end
 
 --------------------------------------------------------------------------------
