@@ -78,6 +78,7 @@ local function overrideHandler(inlayHintNs)
 				virt_text = virtText,
 				virt_text_pos = "eol",
 				hl_mode = "combine", -- ensures highlights are combined with the background, see #2
+				strict = false, -- prevents error on quick buffer changes (e.g. many undos)
 			})
 		end
 	end
