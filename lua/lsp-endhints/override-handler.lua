@@ -51,27 +51,28 @@ local function overrideHandler(inlayHintNs)
 		for lnum, hints in pairs(hintLines) do
 			table.sort(hints, function(a, b) return a.col < b.col end)
 
-			-- merge all labels in a line
-			-- all hints parameters: only one icon
-			-- else: prepend icons to individual label
-			local hintsAllParams = vim.iter(hints)
-				:all(function(hint) return hint.kind == "parameter" end)
-
-			local mergedLabels = vim.iter(hints)
+			local parametersMerged = vim.iter(hints):fold({}, function(acc, hint)
+				local lastHint = acc[#acc]
+				if lastHint and lastHint.kind == "parameter" and hint.kind == "parameter" then
+					acc[#acc].label = lastHint.label .. ", " .. hint.label
+				else
+					table.insert(acc, hint)
+				end
+				return acc
+			end)
+			local joinedLabels = vim.iter(parametersMerged)
 				:map(function(hint)
-					if hintsAllParams then return hint.label end
 					local icon = config.icons[hint.kind] or "[?]"
 					return icon .. hint.label
 				end)
-				:join(hintsAllParams and ", " or " ")
-			if hintsAllParams then mergedLabels = config.icons.parameter .. mergedLabels end
+				:join(" ")
 
 			-- add padding & margin
 			local padding = (" "):rep(config.label.padding)
 			local marginLeft = (" "):rep(config.label.marginLeft)
 			local virtText = {
 				{ marginLeft, "None" },
-				{ padding .. mergedLabels .. padding, "LspInlayHint" },
+				{ padding .. joinedLabels .. padding, "LspInlayHint" },
 			}
 
 			vim.api.nvim_buf_set_extmark(bufnr, inlayHintNs, lnum, 0, {
