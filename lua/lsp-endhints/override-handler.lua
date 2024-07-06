@@ -63,6 +63,9 @@ local function overrideHandler(inlayHintNs)
 			local joinedLabels = vim.iter(parametersMerged)
 				:map(function(hint)
 					local icon = config.icons[hint.kind] or "[?]"
+					if config.label.bracketedParameters and hint.kind == "parameter" then
+						return ("%s(%s)"):format(icon, hint.label)
+					end
 					return icon .. hint.label
 				end)
 				:join(" ")
