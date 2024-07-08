@@ -53,31 +53,34 @@ function M.refreshHandler()
 		for lnum, hints in pairs(hintLines) do
 			table.sort(hints, function(a, b) return a.col < b.col end)
 
-			local parametersMerged = vim.iter(hints):fold({}, function(acc, hint)
-				local lastHint = acc[#acc]
-				if lastHint and lastHint.kind == "parameter" and hint.kind == "parameter" then
-					acc[#acc].label = lastHint.label .. ", " .. hint.label
-				else
-					table.insert(acc, hint)
+			-- merge hints
+			-- add icon only when parameter kind is different from the previous one
+			local hintsMerged = ""
+			for i = 1, #hints do
+				local hint = hints[i]
+				local lastKind = hints[i - 1] and hints[i - 1].kind
+
+				if config.label.bracketedParameters and hint.kind == "parameter" then
+					local nextKind = hints[i + 1] and hints[i + 1].kind
+					if lastKind ~= "parameter" then hint.label = "(" .. hint.label end
+					if nextKind ~= "parameter" then hint.label = hint.label .. ")" end
 				end
-				return acc
-			end)
-			local joinedLabels = vim.iter(parametersMerged)
-				:map(function(hint)
+
+				if lastKind == hint.kind then
+					hintsMerged = hintsMerged .. ", " .. hint.label
+				else
 					local icon = config.icons[hint.kind] or "[?]"
-					if config.label.bracketedParameters and hint.kind == "parameter" then
-						return ("%s(%s)"):format(icon, hint.label)
-					end
-					return icon .. hint.label
-				end)
-				:join(" ")
+					local pad = i ~= 1 and " " or ""
+					hintsMerged = hintsMerged .. pad .. icon .. hint.label
+				end
+			end
 
 			-- add padding & margin
 			local padding = (" "):rep(config.label.padding)
 			local marginLeft = (" "):rep(config.label.marginLeft)
 			local virtText = {
 				{ marginLeft, "None" },
-				{ padding .. joinedLabels .. padding, "LspInlayHint" },
+				{ padding .. hintsMerged .. padding, "LspInlayHint" },
 			}
 
 			vim.api.nvim_buf_set_extmark(bufnr, inlayHintNs, lnum, 0, {
