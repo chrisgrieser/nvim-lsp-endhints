@@ -1,12 +1,11 @@
 <!-- LTeX: enabled=false -->
 # nvim-lsp-endhints 🪧
 <!-- LTeX: enabled=true -->
-<!-- TODO uncomment shields when available in dotfyle.com 
 <a href="https://dotfyle.com/plugins/chrisgrieser/nvim-lsp-endhints">
 <img alt="badge" src="https://dotfyle.com/plugins/chrisgrieser/nvim-lsp-endhints/shield"/></a>
--->
 
-Minimal plugin that displays LSP inlay hints at the end of the line, rather than within the line.
+Minimal plugin that displays LSP inlay hints at the end of the line, rather than
+within the line.
 
 <img alt="Showcase" width=70% src="https://github.com/chrisgrieser/nvim-lsp-endhints/assets/73286100/57894d2f-2c82-4e42-b1e3-ab103c928020">
 
@@ -70,8 +69,8 @@ require("nvim-lsp-endhints").setup {
 The hints use the default highlight group `LspInlayHint`.
 
 ## Usage
-By default, the plugin automatically enables inlay hints when attaching to an LSP, 
-there is nothing to do other than loading the plugin. 
+By default, the plugin automatically enables inlay hints when attaching to an
+LSP, there is nothing to do other than loading the plugin.
 
 All regular inlay hint functions like `vim.lsp.inlay_hint.enable()` work the
 same as before. Use them [as described in the Neovim
