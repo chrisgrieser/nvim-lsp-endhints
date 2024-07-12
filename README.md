@@ -56,6 +56,7 @@ require("nvim-lsp-endhints").setup {
 	icons = {
 		type = "󰜁 ",
 		parameter = "󰏪 ",
+		unknown = "[?] ",
 	},
 	label = {
 		padding = 1,
