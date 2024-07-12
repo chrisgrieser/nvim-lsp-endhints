@@ -69,7 +69,7 @@ function M.refreshHandler()
 				if lastKind == hint.kind then
 					hintsMerged = hintsMerged .. ", " .. hint.label
 				else
-					local icon = config.icons[hint.kind] or "[?]"
+					local icon = config.icons[hint.kind]
 					local pad = i ~= 1 and " " or ""
 					hintsMerged = hintsMerged .. pad .. icon .. hint.label
 				end

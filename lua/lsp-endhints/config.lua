@@ -6,6 +6,7 @@ local defaultConfig = {
 	icons = {
 		type = "󰜁 ",
 		parameter = "󰏪 ",
+		unknown = "[?] ",
 	},
 	label = {
 		padding = 1,
