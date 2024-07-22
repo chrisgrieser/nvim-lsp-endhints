@@ -67,6 +67,7 @@ The `.setup()` call is required.
         icons = {
             type = "󰜁 ",
             parameter = "󰏪 ",
+            unknown = "[?] ",
         },
         label = {
             padding = 1,
