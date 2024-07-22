@@ -56,7 +56,8 @@ require("nvim-lsp-endhints").setup {
 	icons = {
 		type = "󰜁 ",
 		parameter = "󰏪 ",
-		unknown = "[?] ",
+		offspec = " ", -- hint kind not defined in official LSP spec
+		unknown = " ", -- hint kind is nil
 	},
 	label = {
 		padding = 1,

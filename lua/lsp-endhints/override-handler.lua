@@ -40,9 +40,16 @@ function M.refreshHandler()
 			label = vim.trim(label:gsub("^:", ""):gsub(":$", ""))
 
 			-- 1: type, 2: parameter -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHintKind
-			local kind = "unknown"
-			if hint.kind == 1 then kind = "type" end
-			if hint.kind == 2 then kind = "parameter" end
+			local kind
+			if hint.kind == 1 then
+				kind = "type"
+			elseif hint.kind == 2 then
+				kind = "parameter"
+			elseif hint.kind == nil then
+				kind = "unknown"
+			else
+				kind = "offspec"
+			end
 
 			if not acc[lnum] then acc[lnum] = {} end
 			table.insert(acc[lnum], { label = label, col = col, kind = kind })
