@@ -7,11 +7,10 @@ function M.refreshHandler()
 	---@param ctx lsp.HandlerContext
 	---@param _ table -- config
 	vim.lsp.handlers["textDocument/inlayHint"] = function(err, result, ctx, _)
-		local config = require("lsp-endhints.config").config
+		-- GUARD
 		local bufnr = ctx.bufnr or -1
 		if not vim.api.nvim_buf_is_valid(bufnr) then return end
 
-		-- GUARD
 		if not result then return end
 		local client = vim.lsp.get_client_by_id(ctx.client_id)
 		if not client then return end
@@ -21,6 +20,10 @@ function M.refreshHandler()
 			vim.notify(vim.inspect(err), vim.log.levels.ERROR)
 			return
 		end
+
+		local config = require("lsp-endhints.config").config
+		local padding = (" "):rep(config.label.padding)
+		local marginLeft = (" "):rep(config.label.marginLeft)
 
 		local inlayHintNs = vim.api.nvim_create_namespace("lspEndhints")
 		vim.api.nvim_buf_clear_namespace(bufnr, inlayHintNs, 0, -1)
@@ -83,12 +86,10 @@ function M.refreshHandler()
 			end
 
 			-- add padding & margin
-			local padding = (" "):rep(config.label.padding)
-			local marginLeft = (" "):rep(config.label.marginLeft)
 			local virtText = {
-				{ marginLeft, "None" },
 				{ padding .. hintsMerged .. padding, "LspInlayHint" },
 			}
+			if marginLeft ~= "" then table.insert(virtText, 1, { marginLeft }) end
 
 			vim.api.nvim_buf_set_extmark(bufnr, inlayHintNs, lnum, 0, {
 				virt_text = virtText,
