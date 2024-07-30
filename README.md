@@ -52,7 +52,7 @@ The `.setup()` call is required.
 
 ```lua
 -- default settings
-require("nvim-lsp-endhints").setup {
+require("lsp-endhints").setup {
 	icons = {
 		type = "󰜁 ",
 		parameter = "󰏪 ",
