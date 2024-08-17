@@ -1,7 +1,11 @@
 local M = {}
 --------------------------------------------------------------------------------
 
-function M.refreshHandler()
+local enabled = false
+local originalRefreshHandler = vim.lsp.handlers["textDocument/inlayHint"]
+local originalDisableHandler = vim.lsp.inlay_hint.enable
+
+local function refreshHandler()
 	---@param err table
 	---@param result lsp.InlayHint[]?
 	---@param ctx lsp.HandlerContext
@@ -101,8 +105,7 @@ function M.refreshHandler()
 	end
 end
 
-function M.disableHandler()
-	local originalDisableHandler = vim.lsp.inlay_hint.enable
+local function disableHandler()
 	local inlayHintNs = vim.api.nvim_create_namespace("lspEndhints")
 
 	---@param enable boolean|nil true/nil to enable, false to disable
@@ -126,6 +129,26 @@ function M.disableHandler()
 		end
 
 		originalDisableHandler(enable, filter)
+	end
+end
+
+function M.enable()
+	enabled = true
+	refreshHandler()
+	disableHandler()
+end
+
+function M.disable()
+	enabled = false
+	vim.lsp.handlers["textDocument/inlayHint"] = originalRefreshHandler
+	vim.lsp.inlay_hint.enable = originalDisableHandler
+end
+
+function M.toggle()
+	if enabled then
+		M.disable()
+	else
+		M.enable()
 	end
 end
 
