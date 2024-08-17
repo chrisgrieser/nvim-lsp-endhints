@@ -79,6 +79,20 @@ same as before. Use them [as described in the Neovim
 documentation](https://neovim.io/doc/user/lsp.html#vim.lsp.inlay_hint.enable())
 to enable/disable/toggle hints manually.
 
+You can switch the behaviour of the inlay hints using the `enable`, `disable`
+and `toggle` functions exposed by this plugin:
+
+```lua
+-- inlay hints will show at the end of the line. default.
+require("lsp-endhints").enable() 
+
+-- inlay hints will show as if the plugin was not installed.
+require("lsp-endhints").disable() 
+
+-- toggle between the two modes above.
+require("lsp-endhints").toggle() 
+```
+
 ## Background
 - [The LSP specification stipulates that inlay hints have a fixed position in
   the line, which Neovim core follows.](https://github.com/neovim/neovim/issues/28261#issuecomment-2194659088)
