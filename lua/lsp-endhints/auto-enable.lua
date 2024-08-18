@@ -2,7 +2,7 @@ return function()
 	local config = require("lsp-endhints.config").config
 	if not config.autoEnableHints then return end
 
-	local inlayHintNs = vim.api.nvim_create_namespace("lspEndhints")
+	local ns = vim.api.nvim_create_namespace("lspEndhints")
 
 	-- initialize in already open buffers (in case of lazy-loading, etc.)
 	vim.iter(vim.lsp.get_clients())
@@ -22,7 +22,7 @@ return function()
 
 			local enable = ctx.event == "LspAttach"
 			vim.lsp.inlay_hint.enable(enable, { bufnr = ctx.buf })
-			if not enable then vim.api.nvim_buf_clear_namespace(ctx.buf, inlayHintNs, 0, -1) end
+			if not enable then vim.api.nvim_buf_clear_namespace(ctx.buf, ns, 0, -1) end
 		end,
 	})
 end

@@ -8,7 +8,10 @@ function M.setup(userConfig)
 	require("lsp-endhints.auto-enable")()
 end
 
-local function common(f)
+--------------------------------------------------------------------------------
+
+---@param action function
+local function doOnAllBuffer(action)
 	local enabledBuffers = vim.iter(vim.lsp.get_clients())
 		:filter(function(client) return client.server_capabilities.inlayHintProvider end)
 		:map(function(client) return vim.lsp.get_buffers_by_client_id(client.id) end)
@@ -20,16 +23,16 @@ local function common(f)
 		vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
 	end
 
-	f()
+	action()
 
 	for _, bufnr in pairs(enabledBuffers) do
 		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 	end
 end
 
-function M.enable() common(require("lsp-endhints.override-handler").enable) end
-function M.disable() common(require("lsp-endhints.override-handler").disable) end
-function M.toggle() common(require("lsp-endhints.override-handler").toggle) end
+function M.enable() doOnAllBuffer(require("lsp-endhints.override-handler").enable) end
+function M.disable() doOnAllBuffer(require("lsp-endhints.override-handler").disable) end
+function M.toggle() doOnAllBuffer(require("lsp-endhints.override-handler").toggle) end
 
 --------------------------------------------------------------------------------
 return M
