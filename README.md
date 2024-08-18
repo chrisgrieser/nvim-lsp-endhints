@@ -11,7 +11,7 @@ within the line.
 
 *Color scheme: nightfox.nvim, dawnfox variant*
 
-## Table of Content
+## Table of Contents
 
 <!-- toc -->
 
@@ -47,7 +47,6 @@ use {
 ```
 
 ## Configuration
-
 The `.setup()` call is required.
 
 ```lua
