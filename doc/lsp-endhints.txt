@@ -4,7 +4,7 @@
 Table of Contents                             *lsp-endhints-table-of-contents*
 
 1. nvim-lsp-endhints                         |lsp-endhints-nvim-lsp-endhints-|
-  - Table of Content        |lsp-endhints-nvim-lsp-endhints--table-of-content|
+  - Table of Contents      |lsp-endhints-nvim-lsp-endhints--table-of-contents|
   - Installation                |lsp-endhints-nvim-lsp-endhints--installation|
   - Configuration              |lsp-endhints-nvim-lsp-endhints--configuration|
   - Usage                              |lsp-endhints-nvim-lsp-endhints--usage|
@@ -25,7 +25,7 @@ within the line.
 _Color scheme: nightfox.nvim, dawnfox variant_
 
 
-TABLE OF CONTENT            *lsp-endhints-nvim-lsp-endhints--table-of-content*
+TABLE OF CONTENTS          *lsp-endhints-nvim-lsp-endhints--table-of-contents*
 
 - |lsp-endhints-installation|
 - |lsp-endhints-configuration|
