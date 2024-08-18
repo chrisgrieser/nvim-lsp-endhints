@@ -27,7 +27,7 @@ within the line.
 <!-- tocstop -->
 
 ## Installation
-**Requirements:**
+**Requirements**
 - nvim >= 0.10
 - LSP client that supports inlay hints (`textDocument/inlayHint`)
 - Inlay hints enabled in the config of the LSP
@@ -79,18 +79,18 @@ same as before. Use them [as described in the Neovim
 documentation](https://neovim.io/doc/user/lsp.html#vim.lsp.inlay_hint.enable())
 to enable/disable/toggle hints manually.
 
-You can switch the behaviour of the inlay hints using the `enable`, `disable`
-and `toggle` functions exposed by this plugin:
+You can switch between displaying inlay hints and the end of the line and within
+the line by using the `enable`, `disable` and `toggle` functions:
 
 ```lua
--- inlay hints will show at the end of the line. default.
-require("lsp-endhints").enable() 
+-- inlay hints will show at the end of the line (default)
+require("lsp-endhints").enable()
 
--- inlay hints will show as if the plugin was not installed.
-require("lsp-endhints").disable() 
+-- inlay hints will show as if the plugin was not installed
+require("lsp-endhints").disable()
 
--- toggle between the two modes above.
-require("lsp-endhints").toggle() 
+-- toggle between the two
+require("lsp-endhints").toggle()
 ```
 
 ## Background
@@ -103,7 +103,7 @@ require("lsp-endhints").toggle()
   much the same thing for nvim < 0.10, but it is archived by now. Other than
   being maintained, `nvim-lsp-endhints` just overrides the
   `textDocument/inlayHint` handler introduced in nvim 0.10, resulting in a much
-  simpler and more maintainable implementation (~170 LoC instead of ~1000 LoC).
+  simpler and more maintainable implementation (~250 LoC instead of ~1000 LoC).
 
 ## FAQ
 
