@@ -14,7 +14,6 @@ local function changedRefreshHandler(err, result, ctx, _)
 	-- GUARD
 	local bufnr = ctx.bufnr or -1
 	if not vim.api.nvim_buf_is_valid(bufnr) then return end
-
 	if not result then return end
 	local client = vim.lsp.get_client_by_id(ctx.client_id)
 	if not client then return end
@@ -60,7 +59,7 @@ local function changedRefreshHandler(err, result, ctx, _)
 		return acc
 	end)
 
-	-- add hints as extmarks for each line
+	-- loop: add hints as extmarks for each line
 	for lnum, hints in pairs(hintLines) do
 		table.sort(hints, function(a, b) return a.col < b.col end)
 
@@ -92,6 +91,7 @@ local function changedRefreshHandler(err, result, ctx, _)
 		}
 		if marginLeft ~= "" then table.insert(virtText, 1, { marginLeft }) end
 
+		-- add extmark for the line
 		vim.api.nvim_buf_set_extmark(bufnr, ns, lnum, 0, {
 			virt_text = virtText,
 			virt_text_pos = "eol",
@@ -103,7 +103,6 @@ end
 
 ---@param enable boolean|nil true/nil to enable, false to disable
 ---@param filter? vim.lsp.inlay_hint.enable.Filter
----@diagnostic disable-next-line: duplicate-set-field intentional override
 local function changedDisableHandler(enable, filter)
 	if enable == false then
 		local buffers = (filter and filter.bufnr) and { filter.bufnr }
