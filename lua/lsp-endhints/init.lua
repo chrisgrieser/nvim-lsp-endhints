@@ -5,7 +5,7 @@ local M = {}
 function M.setup(userConfig)
 	require("lsp-endhints.config").setup(userConfig)
 	require("lsp-endhints.override-handler").enable()
-	require("lsp-endhints.auto-enable")()
+	require("lsp-endhints.auto-enable")
 end
 
 --------------------------------------------------------------------------------
