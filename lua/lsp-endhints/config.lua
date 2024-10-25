@@ -4,6 +4,7 @@ local M = {}
 ---@class LspEndhints.config
 local defaultConfig = {
 	icons = {
+		enabled = true,
 		type = "󰜁 ",
 		parameter = "󰏪 ",
 		offspec = " ", -- hint kind not defined in official LSP spec

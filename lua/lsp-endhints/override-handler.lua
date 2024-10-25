@@ -79,7 +79,7 @@ local function changedRefreshHandler(err, result, ctx, _)
 			if lastKind == hint.kind then
 				hintsMerged = hintsMerged .. ", " .. hint.label
 			else
-				local icon = config.icons[hint.kind]
+				local icon = config.icons.enabled and config.icons[hint.kind] or ""
 				local pad = i ~= 1 and " " or ""
 				hintsMerged = hintsMerged .. pad .. icon .. hint.label
 			end
