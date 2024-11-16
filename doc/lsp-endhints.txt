@@ -73,7 +73,6 @@ The `.setup()` call is required.
         label = {
             padding = 1,
             marginLeft = 0,
-            bracketedParameters = true,
         },
         autoEnableHints = true,
     }
@@ -92,7 +91,7 @@ same as before. Use them |as described in the Neovim documentation| to
 enable/disable/toggle hints manually.
 
 You can switch between displaying inlay hints at the end of the line (this
-plugin) and within the line (neovim default) by using the `enable`, `disable`
+plugin) and within the line (Neovim default) by using the `enable`, `disable`
 and `toggle` functions:
 
 >lua
