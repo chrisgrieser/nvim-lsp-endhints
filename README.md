@@ -20,8 +20,8 @@ within the line.
 - [Usage](#usage)
 - [Background](#background)
 - [FAQ](#faq)
-	* [How to display hints only for the current line?](#how-to-display-hints-only-for-the-current-line)
-	* [How to enable inlay hints for a language?](#how-to-enable-inlay-hints-for-a-language)
+  * [How to display hints only for the current line?](#how-to-display-hints-only-for-the-current-line)
+  * [How to enable inlay hints for a language?](#how-to-enable-inlay-hints-for-a-language)
 - [About the author](#about-the-author)
 
 <!-- tocstop -->
@@ -61,7 +61,6 @@ require("lsp-endhints").setup {
 	label = {
 		padding = 1,
 		marginLeft = 0,
-		bracketedParameters = true,
 	},
 	autoEnableHints = true,
 }
@@ -78,8 +77,8 @@ same as before. Use them [as described in the Neovim
 documentation](https://neovim.io/doc/user/lsp.html#vim.lsp.inlay_hint.enable())
 to enable/disable/toggle hints manually.
 
-You can switch between displaying inlay hints at the end of the line (this plugin) 
-and within the line (neovim default) by using the `enable`, `disable` and `toggle` 
+You can switch between displaying inlay hints at the end of the line (this plugin)
+and within the line (Neovim default) by using the `enable`, `disable` and `toggle`
 functions:
 
 ```lua
@@ -183,7 +182,6 @@ require("lspconfig").clangd.setup {
 }
 ```
 
-<!-- vale Google.FirstPerson = NO -->
 ## About the author
 In my day job, I am a sociologist studying the social mechanisms underlying the
 digital economy. For my PhD project, I investigate the governance of the app

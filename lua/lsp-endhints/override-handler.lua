@@ -69,13 +69,6 @@ local function changedRefreshHandler(err, result, ctx, _)
 		for i = 1, #hints do
 			local hint = hints[i]
 			local lastKind = hints[i - 1] and hints[i - 1].kind
-
-			if config.label.bracketedParameters and hint.kind == "parameter" then
-				local nextKind = hints[i + 1] and hints[i + 1].kind
-				if lastKind ~= "parameter" then hint.label = "(" .. hint.label end
-				if nextKind ~= "parameter" then hint.label = hint.label .. ")" end
-			end
-
 			if lastKind == hint.kind then
 				hintsMerged = hintsMerged .. ", " .. hint.label
 			else

@@ -12,7 +12,6 @@ local defaultConfig = {
 	label = {
 		padding = 1,
 		marginLeft = 0,
-		bracketedParameters = true,
 	},
 	autoEnableHints = true,
 }
