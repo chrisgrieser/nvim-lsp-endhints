@@ -63,14 +63,14 @@ local function changedRefreshHandler(err, result, ctx, _)
 	for lnum, hints in pairs(hintLines) do
 		table.sort(hints, function(a, b) return a.col < b.col end)
 
-		-- merge hints
+		-- merge hints of same kind
 		-- add icon only when parameter kind is different from the previous one
 		local hintsMerged = ""
 		for i = 1, #hints do
 			local hint = hints[i]
 			local lastKind = hints[i - 1] and hints[i - 1].kind
 			if lastKind == hint.kind then
-				hintsMerged = hintsMerged .. ", " .. hint.label
+				hintsMerged = hintsMerged .. config.label.sameKindSeparator .. hint.label
 			else
 				local icon = config.icons[hint.kind]
 				local pad = i ~= 1 and " " or ""

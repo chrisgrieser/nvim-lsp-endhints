@@ -12,6 +12,7 @@ local defaultConfig = {
 	label = {
 		padding = 1,
 		marginLeft = 0,
+		sameKindSeparator = ", ",
 	},
 	autoEnableHints = true,
 }

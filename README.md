@@ -61,6 +61,7 @@ require("lsp-endhints").setup {
 	label = {
 		padding = 1,
 		marginLeft = 0,
+		sameKindSeparator = ", ",
 	},
 	autoEnableHints = true,
 }
