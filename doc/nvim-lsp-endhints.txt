@@ -1,6 +1,18 @@
 *nvim-lsp-endhints.txt*        For Neovim        Last change: 2024 November 26
 
 ==============================================================================
+Table of Contents                        *nvim-lsp-endhints-table-of-contents*
+
+1. nvim-lsp-endhints                    |nvim-lsp-endhints-nvim-lsp-endhints-|
+  - Table of Contents |nvim-lsp-endhints-nvim-lsp-endhints--table-of-contents|
+  - Installation           |nvim-lsp-endhints-nvim-lsp-endhints--installation|
+  - Configuration         |nvim-lsp-endhints-nvim-lsp-endhints--configuration|
+  - Usage                         |nvim-lsp-endhints-nvim-lsp-endhints--usage|
+  - Background               |nvim-lsp-endhints-nvim-lsp-endhints--background|
+  - FAQ                             |nvim-lsp-endhints-nvim-lsp-endhints--faq|
+  - About the author   |nvim-lsp-endhints-nvim-lsp-endhints--about-the-author|
+
+==============================================================================
 1. nvim-lsp-endhints                    *nvim-lsp-endhints-nvim-lsp-endhints-*
 
 
