@@ -10,6 +10,7 @@ local defaultConfig = {
 		unknown = " ", -- hint kind is nil
 	},
 	label = {
+		truncateAtChars = 20,
 		padding = 1,
 		marginLeft = 0,
 		sameKindSeparator = ", ",

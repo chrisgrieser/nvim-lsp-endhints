@@ -35,13 +35,19 @@ local function changedRefreshHandler(err, result, ctx, _)
 	local hintLines = vim.iter(result):fold({}, function(acc, hint)
 		local lnum = hint.position.line
 		local col = hint.position.character
-		-- label is either string or `InlayHintLabelPart[]` https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHint
+
+		-- LABEL
 		local label = hint.label
 		if type(label) ~= "string" then
+			-- label can be string or `InlayHintLabelPart[]` https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHint
 			label = vim.iter(hint.label):map(function(labelPart) return labelPart.value end):join("")
 		end
 		label = vim.trim(label:gsub("^:", ""):gsub(":$", ""))
+		if config.label.truncateAtChars and #label > config.label.truncateAtChars then
+			label = label:sub(1, config.label.truncateAtChars) .. "…"
+		end
 
+		-- KIND
 		-- 1: type, 2: parameter -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#inlayHintKind
 		local kind
 		if hint.kind == 1 then
