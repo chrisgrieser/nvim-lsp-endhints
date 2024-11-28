@@ -1,4 +1,4 @@
-*nvim-lsp-endhints.txt*        For Neovim        Last change: 2024 November 26
+*nvim-lsp-endhints.txt*        For Neovim        Last change: 2024 November 28
 
 ==============================================================================
 Table of Contents                        *nvim-lsp-endhints-table-of-contents*
@@ -71,6 +71,7 @@ The `.setup()` call is required.
             unknown = " ", -- hint kind is nil
         },
         label = {
+            truncateAtChars = 20,
             padding = 1,
             marginLeft = 0,
             sameKindSeparator = ", ",
