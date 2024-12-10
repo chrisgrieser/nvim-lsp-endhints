@@ -15,6 +15,9 @@ local defaultConfig = {
 		marginLeft = 0,
 		sameKindSeparator = ", ",
 	},
+	extmark = {
+		priority = 50,
+	},
 	autoEnableHints = true,
 }
 M.config = defaultConfig

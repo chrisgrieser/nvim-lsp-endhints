@@ -96,6 +96,7 @@ local function changedRefreshHandler(err, result, ctx, _)
 			virt_text_pos = "eol",
 			hl_mode = "combine", -- ensures highlights are combined with the background, see #2
 			strict = false, -- prevents error on quick buffer changes (e.g. quick series of undos)
+			priority = config.extmark.priority,
 		})
 	end
 end

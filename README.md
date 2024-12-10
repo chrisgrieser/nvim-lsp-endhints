@@ -64,6 +64,9 @@ require("lsp-endhints").setup {
 		marginLeft = 0,
 		sameKindSeparator = ", ",
 	},
+	extmark = {
+		priority = 50,
+	},
 	autoEnableHints = true,
 }
 ```
