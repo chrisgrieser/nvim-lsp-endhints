@@ -20,8 +20,9 @@ within the line.
 - [Usage](#usage)
 - [Background](#background)
 - [FAQ](#faq)
-  * [How to display hints only for the current line?](#how-to-display-hints-only-for-the-current-line)
-  * [How to enable inlay hints for a language?](#how-to-enable-inlay-hints-for-a-language)
+	* [How to display hints only for the current line?](#how-to-display-hints-only-for-the-current-line)
+	* [Compatibility with other inlay hints plugins](#compatibility-with-other-inlay-hints-plugins)
+	* [How to enable inlay hints for a language?](#how-to-enable-inlay-hints-for-a-language)
 - [About the author](#about-the-author)
 
 <!-- tocstop -->
@@ -116,6 +117,17 @@ That is not supported by the plugin. However, [it only takes a small snippet to
 implement it
 yourself.](https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921)
 (Note that the linked snippet is not compatible with this plugin.)
+
+### Compatibility with other inlay hints plugins
+Since this plugin overrides the nvim handler for `"textDocument/inlayHint"`,
+other plugins that interact with inlay hints may be incompatible with it, and
+there is likely little there can be done about it.
+
+However, if the other plugin is using specific commands related to inlay hints
+rather than permanently displaying them like `nvim-lsp-endhints`, you can
+temporarily disable `endhints`, trigger the other plugin, and then re-enable
+`endhints`. Binding that to a custom function should allow you to use the other
+plugin without issues then.
 
 ### How to enable inlay hints for a language?
 

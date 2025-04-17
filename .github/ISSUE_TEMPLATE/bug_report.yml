@@ -10,7 +10,7 @@ body:
       options:
         - label: I have updated to the latest version of the plugin.
           required: true
-        - label: I have read the README.
+        - label: I have read the README, especially the FAQ.
           required: true
         - label: >
             LSP inlay hints do work correctly without this plugin when using
