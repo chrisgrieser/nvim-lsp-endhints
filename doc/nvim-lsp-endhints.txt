@@ -1,4 +1,4 @@
-*nvim-lsp-endhints.txt*          For Neovim         Last change: 2025 April 17
+*nvim-lsp-endhints.txt*          For Neovim         Last change: 2025 April 18
 
 ==============================================================================
 Table of Contents                        *nvim-lsp-endhints-table-of-contents*
@@ -40,7 +40,7 @@ TABLE OF CONTENTS     *nvim-lsp-endhints-nvim-lsp-endhints--table-of-contents*
 
 INSTALLATION               *nvim-lsp-endhints-nvim-lsp-endhints--installation*
 
-**Requirements** - nvim >= 0.10 - LSP client that supports inlay hints
+**Requirements** - nvim 0.10+ - LSP client supports inlay hints
 (`textDocument/inlayHint`) - Inlay hints enabled in the config of the LSP
 
 >lua
@@ -54,6 +54,9 @@ INSTALLATION               *nvim-lsp-endhints-nvim-lsp-endhints--installation*
     -- packer
     use {
         "chrisgrieser/nvim-lsp-endhints",
+        config = function()
+            require("lsp-endhints").setup() -- required, even if empty
+        end,
     }
 <
 
