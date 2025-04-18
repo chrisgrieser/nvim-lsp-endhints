@@ -29,8 +29,8 @@ within the line.
 
 ## Installation
 **Requirements**
-- nvim >= 0.10
-- LSP client that supports inlay hints (`textDocument/inlayHint`)
+- nvim 0.10+
+- LSP client supports inlay hints (`textDocument/inlayHint`)
 - Inlay hints enabled in the config of the LSP
 
 ```lua
@@ -44,6 +44,9 @@ within the line.
 -- packer
 use {
 	"chrisgrieser/nvim-lsp-endhints",
+	config = function()
+		require("lsp-endhints").setup() -- required, even if empty
+	end,
 }
 ```
 
