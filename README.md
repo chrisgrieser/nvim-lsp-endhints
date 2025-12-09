@@ -20,7 +20,7 @@ within the line.
 - [FAQ](#faq)
 	* [How to display hints only for the current line?](#how-to-display-hints-only-for-the-current-line)
 	* [Compatibility with other inlay hints plugins](#compatibility-with-other-inlay-hints-plugins)
-	* [How to enable inlay hints for a language?](#how-to-enable-inlay-hints-for-a-language)
+	* [How to enable inlay hints for an LSP?](#how-to-enable-inlay-hints-for-an-lsp)
 - [About the author](#about-the-author)
 
 <!-- tocstop -->
@@ -29,7 +29,7 @@ within the line.
 **Requirements**
 - nvim 0.10+
 - LSP that supports inlay hints (`textDocument/inlayHint`)
-- Inlay hints [enabled in the config of that LSP](#how-to-enable-inlay-hints-for-a-language)
+- Inlay hints [enabled in the config of that LSP](#how-to-enable-inlay-hints-for-an-lsp)
 
 ```lua
 -- lazy.nvim
@@ -129,14 +129,14 @@ temporarily disable `endhints`, trigger the other plugin, and then re-enable
 `endhints`. Binding that to a custom function should allow you to use the other
 plugin without issues then.
 
-### How to enable inlay hints for a language?
+### How to enable inlay hints for an LSP?
 Not all LSPs support inlay hints. The following list is not exhaustive,
 there are more LSPs that support inlay hints. Please refer to your LSP's
 documentation.
 
 ```lua
 -- lua-ls
-require("lspconfig").lua_ls.setup {
+vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
 			hint = { enable = true },
@@ -144,7 +144,7 @@ require("lspconfig").lua_ls.setup {
 	},
 }
 
--- tsserver
+-- typescript
 local inlayHints = {
 	includeInlayParameterNameHints = "all",
 	includeInlayParameterNameHintsWhenArgumentMatchesName = false,
@@ -155,7 +155,7 @@ local inlayHints = {
 	includeInlayFunctionLikeReturnTypeHints = true,
 	includeInlayEnumMemberValueHints = true,
 }
-require("lspconfig").tsserver.setup {
+vim.lsp.config("ts_ls", {
 	settings = {
 		typescript = {
 			inlayHints = inlayHints,
@@ -167,7 +167,7 @@ require("lspconfig").tsserver.setup {
 }
 
 -- gopls
-require("lspconfig").gopls.setup {
+vim.lsp.config("gopls", {
 	settings = {
 		hints = {
 			rangeVariableTypes = true,
@@ -182,7 +182,7 @@ require("lspconfig").gopls.setup {
 }
 
 -- clangd
-require("lspconfig").clangd.setup {
+vim.lsp.config("clangd", {
 	settings = {
 		clangd = {
 			InlayHints = {
