@@ -6,6 +6,37 @@ local originalRefreshHandler = vim.lsp.handlers["textDocument/inlayHint"]
 local originalDisableHandler = vim.lsp.inlay_hint.enable
 --------------------------------------------------------------------------------
 
+
+local function defaultFormatInlayHints(hints, table)
+	local config = require("lsp-endhints.config").config
+	local padding = (" "):rep(config.label.padding)
+	local marginLeft = (" "):rep(config.label.marginLeft)
+	-- merge hints of same kind
+	-- add icon only when parameter kind is different from the previous one
+	local hintsMerged = ""
+	for i = 1, #hints do
+		local hint = hints[i]
+		local lastKind = hints[i - 1] and hints[i - 1].kind
+		if lastKind == hint.kind then
+			hintsMerged = hintsMerged .. config.label.sameKindSeparator .. hint.label
+		else
+			local icon = config.icons[hint.kind]
+			local pad = i ~= 1 and " " or ""
+			hintsMerged = hintsMerged .. pad .. icon .. hint.label
+		end
+	end
+
+	-- add padding & margin
+	local virtText = {
+		{ padding .. hintsMerged .. padding, "LspInlayHint" },
+	}
+	if marginLeft ~= "" then table.insert(virtText, 1, { marginLeft }) end
+
+	return virtText
+end
+
+local formatInlayHints = defaultFormatInlayHints
+
 ---@param err table
 ---@param result lsp.InlayHint[]?
 ---@param ctx lsp.HandlerContext
@@ -69,27 +100,7 @@ local function changedRefreshHandler(err, result, ctx, _)
 	for lnum, hints in pairs(hintLines) do
 		table.sort(hints, function(a, b) return a.col < b.col end)
 
-		-- merge hints of same kind
-		-- add icon only when parameter kind is different from the previous one
-		local hintsMerged = ""
-		for i = 1, #hints do
-			local hint = hints[i]
-			local lastKind = hints[i - 1] and hints[i - 1].kind
-			if lastKind == hint.kind then
-				hintsMerged = hintsMerged .. config.label.sameKindSeparator .. hint.label
-			else
-				local icon = config.icons[hint.kind]
-				local pad = i ~= 1 and " " or ""
-				hintsMerged = hintsMerged .. pad .. icon .. hint.label
-			end
-		end
-
-		-- add padding & margin
-		local virtText = {
-			{ padding .. hintsMerged .. padding, "LspInlayHint" },
-		}
-		if marginLeft ~= "" then table.insert(virtText, 1, { marginLeft }) end
-
+		local virtText = formatInlayHints(hints, table)
 		-- add extmark for the line
 		vim.api.nvim_buf_set_extmark(bufnr, ns, lnum, 0, {
 			virt_text = virtText,
@@ -101,6 +112,7 @@ local function changedRefreshHandler(err, result, ctx, _)
 	end
 end
 
+
 ---@param enable boolean|nil true/nil to enable, false to disable
 ---@param filter? vim.lsp.inlay_hint.enable.Filter
 local function changedDisableHandler(enable, filter)
@@ -110,9 +122,9 @@ local function changedDisableHandler(enable, filter)
 		-- if no buffer filter provided, disable in all buffers
 		if not buffers then
 			buffers = vim.iter(vim.lsp.get_clients())
-				:map(function(client) return vim.lsp.get_buffers_by_client_id(client.id) end)
-				:flatten()
-				:totable()
+				 :map(function(client) return vim.lsp.get_buffers_by_client_id(client.id) end)
+				 :flatten()
+				 :totable()
 		end
 
 		for _, bufnr in pairs(buffers) do
@@ -124,6 +136,10 @@ local function changedDisableHandler(enable, filter)
 end
 
 --------------------------------------------------------------------------------
+
+function M.setInlayHintFormatFunction(formatInlayHintsCallback)
+	formatInlayHints = formatInlayHintsCallback
+end
 
 function M.enable()
 	state.endhintsEnabled = true
