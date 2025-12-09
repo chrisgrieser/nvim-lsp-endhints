@@ -1,6 +1,4 @@
-<!-- LTeX: enabled=false -->
 # nvim-lsp-endhints 🪧
-<!-- LTeX: enabled=true -->
 <a href="https://dotfyle.com/plugins/chrisgrieser/nvim-lsp-endhints">
 <img alt="badge" src="https://dotfyle.com/plugins/chrisgrieser/nvim-lsp-endhints/shield"/></a>
 
@@ -9,7 +7,7 @@ within the line.
 
 <img alt="Showcase" width=70% src="https://github.com/chrisgrieser/nvim-lsp-endhints/assets/73286100/57894d2f-2c82-4e42-b1e3-ab103c928020">
 
-*Color scheme: nightfox.nvim, dawnfox variant*
+*Color scheme: `nightfox.nvim`, dawnfox variant*
 
 ## Table of Contents
 
@@ -30,8 +28,8 @@ within the line.
 ## Installation
 **Requirements**
 - nvim 0.10+
-- LSP client supports inlay hints (`textDocument/inlayHint`)
-- Inlay hints enabled in the config of the LSP
+- LSP that supports inlay hints (`textDocument/inlayHint`)
+- Inlay hints [enabled in the config of that LSP](#how-to-enable-inlay-hints-for-a-language)
 
 ```lua
 -- lazy.nvim
@@ -51,7 +49,7 @@ use {
 ```
 
 ## Configuration
-The `.setup()` call is required.
+The `.setup()` call is **required**.
 
 ```lua
 -- default settings
@@ -109,9 +107,9 @@ require("lsp-endhints").toggle()
   type hints, such as TypeScript.
 - [nvim-inlayhint](https://github.com/lvimuser/lsp-inlayhints.nvim) did pretty
   much the same thing for nvim < 0.10, but it is archived by now. Other than
-  being maintained, `nvim-lsp-endhints` just overrides the
+  being maintained, `nvim-lsp-endhints` only overrides the
   `textDocument/inlayHint` handler introduced in nvim 0.10, resulting in a much
-  simpler and more maintainable implementation (~250 LoC instead of ~1000 LoC).
+  simpler and more maintainable implementation (~250 LOC instead of ~1000 LOC).
 
 ## FAQ
 
@@ -123,8 +121,7 @@ yourself.](https://github.com/neovim/neovim/issues/28261#issuecomment-2130338921
 
 ### Compatibility with other inlay hints plugins
 Since this plugin overrides the nvim handler for `"textDocument/inlayHint"`,
-other plugins that interact with inlay hints may be incompatible with it, and
-there is likely little there can be done about it.
+other plugins that interact with inlay hints may be incompatible with it.
 
 However, if the other plugin is using specific commands related to inlay hints
 rather than permanently displaying them like `nvim-lsp-endhints`, you can
@@ -133,11 +130,9 @@ temporarily disable `endhints`, trigger the other plugin, and then re-enable
 plugin without issues then.
 
 ### How to enable inlay hints for a language?
-
-> [!NOTE]
-> Not all LSPs support inlay hints. The following list is not exhaustive,
-> there are more LSPs that support inlay hints. Please refer to your LSP's
-> documentation.
+Not all LSPs support inlay hints. The following list is not exhaustive,
+there are more LSPs that support inlay hints. Please refer to your LSP's
+documentation.
 
 ```lua
 -- lua-ls
