@@ -1,4 +1,4 @@
-*nvim-lsp-endhints.txt*        For Neovim        Last change: 2025 November 24
+*nvim-lsp-endhints.txt*        For Neovim        Last change: 2025 December 09
 
 ==============================================================================
 Table of Contents                        *nvim-lsp-endhints-table-of-contents*
@@ -34,14 +34,15 @@ TABLE OF CONTENTS     *nvim-lsp-endhints-nvim-lsp-endhints--table-of-contents*
 - |nvim-lsp-endhints-faq|
     - |nvim-lsp-endhints-how-to-display-hints-only-for-the-current-line?|
     - |nvim-lsp-endhints-compatibility-with-other-inlay-hints-plugins|
-    - |nvim-lsp-endhints-how-to-enable-inlay-hints-for-a-language?|
+    - |nvim-lsp-endhints-how-to-enable-inlay-hints-for-an-lsp?|
 - |nvim-lsp-endhints-about-the-author|
 
 
 INSTALLATION               *nvim-lsp-endhints-nvim-lsp-endhints--installation*
 
-**Requirements** - nvim 0.10+ - LSP client supports inlay hints
-(`textDocument/inlayHint`) - Inlay hints enabled in the config of the LSP
+**Requirements** - nvim 0.10+ - LSP that supports inlay hints
+(`textDocument/inlayHint`) - Inlay hints
+|nvim-lsp-endhints-enabled-in-the-config-of-that-lsp|
 
 >lua
     -- lazy.nvim
@@ -63,7 +64,7 @@ INSTALLATION               *nvim-lsp-endhints-nvim-lsp-endhints--installation*
 
 CONFIGURATION             *nvim-lsp-endhints-nvim-lsp-endhints--configuration*
 
-The `.setup()` call is required.
+The `.setup()` call is **required**.
 
 >lua
     -- default settings
@@ -124,9 +125,9 @@ BACKGROUND                   *nvim-lsp-endhints-nvim-lsp-endhints--background*
     type hints, such as TypeScript.
 - nvim-inlayhint <https://github.com/lvimuser/lsp-inlayhints.nvim> did pretty
     much the same thing for nvim < 0.10, but it is archived by now. Other than
-    being maintained, `nvim-lsp-endhints` just overrides the
+    being maintained, `nvim-lsp-endhints` only overrides the
     `textDocument/inlayHint` handler introduced in nvim 0.10, resulting in a much
-    simpler and more maintainable implementation (~250 LoC instead of ~1000 LoC).
+    simpler and more maintainable implementation (~250 LOC instead of ~1000 LOC).
 
 
 FAQ                                 *nvim-lsp-endhints-nvim-lsp-endhints--faq*
@@ -143,8 +144,7 @@ that the linked snippet is not compatible with this plugin.)
 COMPATIBILITY WITH OTHER INLAY HINTS PLUGINS ~
 
 Since this plugin overrides the nvim handler for `"textDocument/inlayHint"`,
-other plugins that interact with inlay hints may be incompatible with it, and
-there is likely little there can be done about it.
+other plugins that interact with inlay hints may be incompatible with it.
 
 However, if the other plugin is using specific commands related to inlay hints
 rather than permanently displaying them like `nvim-lsp-endhints`, you can
@@ -153,15 +153,15 @@ temporarily disable `endhints`, trigger the other plugin, and then re-enable
 plugin without issues then.
 
 
-HOW TO ENABLE INLAY HINTS FOR A LANGUAGE? ~
+HOW TO ENABLE INLAY HINTS FOR AN LSP? ~
 
+Not all LSPs support inlay hints. The following list is not exhaustive, there
+are more LSPs that support inlay hints. Please refer to your LSP’s
+documentation.
 
-  [!NOTE] Not all LSPs support inlay hints. The following list is not exhaustive,
-  there are more LSPs that support inlay hints. Please refer to your LSP’s
-  documentation.
 >lua
     -- lua-ls
-    require("lspconfig").lua_ls.setup {
+    vim.lsp.config("lua_ls", {
         settings = {
             Lua = {
                 hint = { enable = true },
@@ -169,7 +169,7 @@ HOW TO ENABLE INLAY HINTS FOR A LANGUAGE? ~
         },
     }
     
-    -- tsserver
+    -- typescript
     local inlayHints = {
         includeInlayParameterNameHints = "all",
         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
@@ -180,7 +180,7 @@ HOW TO ENABLE INLAY HINTS FOR A LANGUAGE? ~
         includeInlayFunctionLikeReturnTypeHints = true,
         includeInlayEnumMemberValueHints = true,
     }
-    require("lspconfig").tsserver.setup {
+    vim.lsp.config("ts_ls", {
         settings = {
             typescript = {
                 inlayHints = inlayHints,
@@ -192,7 +192,7 @@ HOW TO ENABLE INLAY HINTS FOR A LANGUAGE? ~
     }
     
     -- gopls
-    require("lspconfig").gopls.setup {
+    vim.lsp.config("gopls", {
         settings = {
             hints = {
                 rangeVariableTypes = true,
@@ -207,7 +207,7 @@ HOW TO ENABLE INLAY HINTS FOR A LANGUAGE? ~
     }
     
     -- clangd
-    require("lspconfig").clangd.setup {
+    vim.lsp.config("clangd", {
         settings = {
             clangd = {
                 InlayHints = {
