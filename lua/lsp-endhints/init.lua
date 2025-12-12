@@ -31,7 +31,9 @@ local function doOnAllBuffer(action)
 end
 
 function M.enable() doOnAllBuffer(require("lsp-endhints.override-handler").enable) end
+
 function M.disable() doOnAllBuffer(require("lsp-endhints.override-handler").disable) end
+
 function M.toggle() doOnAllBuffer(require("lsp-endhints.override-handler").toggle) end
 
 --------------------------------------------------------------------------------

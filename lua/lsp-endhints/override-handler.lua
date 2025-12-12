@@ -6,11 +6,44 @@ local originalRefreshHandler = vim.lsp.handlers["textDocument/inlayHint"]
 local originalDisableHandler = vim.lsp.inlay_hint.enable
 --------------------------------------------------------------------------------
 
+---@param hints {label: string, col: number, kind: string}[]
+---@param _bufnr number
+---@return {[1]: string, [2]: string}[] virtText for `nvim_buf_set_extmark`, i.e., a table of string tuples (text & highlight group)
+local function defaultHintFormatFunc(hints, _bufnr)
+	local config = require("lsp-endhints.config").config
+	local padding = (" "):rep(config.label.padding)
+	local marginLeft = (" "):rep(config.label.marginLeft)
+
+	-- merge hints of same kind
+	-- add icon only when parameter kind is different from the previous one
+	local hintsMerged = ""
+	for i = 1, #hints do
+		local hint = hints[i]
+		local lastKind = hints[i - 1] and hints[i - 1].kind
+		if lastKind == hint.kind then
+			hintsMerged = hintsMerged .. config.label.sameKindSeparator .. hint.label
+		else
+			local icon = config.icons[hint.kind]
+			local pad = i ~= 1 and " " or ""
+			hintsMerged = hintsMerged .. pad .. icon .. hint.label
+		end
+	end
+
+	-- add padding & margin
+	---@type {[1]: string, [2]: string}[]
+	local virtText = {
+		{ padding .. hintsMerged .. padding, "LspInlayHint" },
+	}
+	if marginLeft ~= "" then table.insert(virtText, 1, { marginLeft }) end
+
+	return virtText
+end
+
 ---@param err table
 ---@param result lsp.InlayHint[]?
 ---@param ctx lsp.HandlerContext
----@param _ table -- config
-local function changedRefreshHandler(err, result, ctx, _)
+---@param _config table
+local function changedRefreshHandler(err, result, ctx, _config)
 	-- GUARD
 	local bufnr = ctx.bufnr or -1
 	if not vim.api.nvim_buf_is_valid(bufnr) then return end
@@ -25,13 +58,11 @@ local function changedRefreshHandler(err, result, ctx, _)
 	end
 
 	local config = require("lsp-endhints.config").config
-	local padding = (" "):rep(config.label.padding)
-	local marginLeft = (" "):rep(config.label.marginLeft)
-
 	vim.api.nvim_buf_clear_namespace(bufnr, ns, 0, -1)
 
 	-- Collect all hints for each line, so we can sort them by column in the loop
 	-- below. This ensures that the hints are displayed in the correct order.
+	---@type table<number, { label: string, col: number, kind: string }>
 	local hintLines = vim.iter(result):fold({}, function(acc, hint)
 		local lnum = hint.position.line
 		local col = hint.position.character
@@ -68,27 +99,7 @@ local function changedRefreshHandler(err, result, ctx, _)
 	-- loop: add hints as extmarks for each line
 	for lnum, hints in pairs(hintLines) do
 		table.sort(hints, function(a, b) return a.col < b.col end)
-
-		-- merge hints of same kind
-		-- add icon only when parameter kind is different from the previous one
-		local hintsMerged = ""
-		for i = 1, #hints do
-			local hint = hints[i]
-			local lastKind = hints[i - 1] and hints[i - 1].kind
-			if lastKind == hint.kind then
-				hintsMerged = hintsMerged .. config.label.sameKindSeparator .. hint.label
-			else
-				local icon = config.icons[hint.kind]
-				local pad = i ~= 1 and " " or ""
-				hintsMerged = hintsMerged .. pad .. icon .. hint.label
-			end
-		end
-
-		-- add padding & margin
-		local virtText = {
-			{ padding .. hintsMerged .. padding, "LspInlayHint" },
-		}
-		if marginLeft ~= "" then table.insert(virtText, 1, { marginLeft }) end
+		local virtText = (config.hintFormatFunc or defaultHintFormatFunc)(hints, bufnr)
 
 		-- add extmark for the line
 		vim.api.nvim_buf_set_extmark(bufnr, ns, lnum, 0, {

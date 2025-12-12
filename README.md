@@ -54,6 +54,7 @@ The `.setup()` call is **required**.
 ```lua
 -- default settings
 require("lsp-endhints").setup {
+	autoEnableHints = true,
 	icons = {
 		type = "󰜁 ",
 		parameter = "󰏪 ",
@@ -69,7 +70,12 @@ require("lsp-endhints").setup {
 	extmark = {
 		priority = 50,
 	},
-	autoEnableHints = true,
+
+	---Function that overrides how hints are displayed.
+	---expects as output a table for `virt_text` from `nvim_buf_set_extmark`,
+	---that is a table of string tuples (text & highlight group)
+	---@type function(hints: {label: string, col: number, kind: string}[], bufnr: number): {[1]: string, [2]: string}[]
+	hintFormatFunc = nil,
 }
 ```
 
