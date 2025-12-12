@@ -36,11 +36,9 @@ function M.disable() doOnAllBuffer(require("lsp-endhints.override-handler").disa
 
 function M.toggle() doOnAllBuffer(require("lsp-endhints.override-handler").toggle) end
 
-function M.setInlayHintFormatFunction(callback)
-	doOnAllBuffer(function()
-		require("lsp-endhints.override-handler")
-			 .setInlayHintFormatFunction(callback)
-	end)
+function M.setInlayHintFormatFunctions(callbackTable)
+	require("lsp-endhints.override-handler")
+		 .setInlayHintFormatFunctions(callbackTable)
 end
 
 --------------------------------------------------------------------------------

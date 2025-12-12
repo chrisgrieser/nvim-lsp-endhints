@@ -4,6 +4,8 @@ local state = { endhintsEnabled = false }
 local ns = vim.api.nvim_create_namespace("lspEndhints")
 local originalRefreshHandler = vim.lsp.handlers["textDocument/inlayHint"]
 local originalDisableHandler = vim.lsp.inlay_hint.enable
+local formatInlayHintsCallbackTable = {}
+local inlayHintFormatterByBufferId = {}
 --------------------------------------------------------------------------------
 
 
@@ -35,7 +37,6 @@ local function defaultFormatInlayHints(hints, table)
 	return virtText
 end
 
-local formatInlayHints = defaultFormatInlayHints
 
 ---@param err table
 ---@param result lsp.InlayHint[]?
@@ -100,6 +101,13 @@ local function changedRefreshHandler(err, result, ctx, _)
 	for lnum, hints in pairs(hintLines) do
 		table.sort(hints, function(a, b) return a.col < b.col end)
 
+		local formatInlayHints = inlayHintFormatterByBufferId[bufnr]
+		if not formatInlayHints then
+			local lsp_name = vim.lsp.get_clients({ bufnr = bufnr })[1].name or ""
+			inlayHintFormatterByBufferId[bufnr] = formatInlayHintsCallbackTable[lsp_name] or
+				 defaultFormatInlayHints
+			formatInlayHints = inlayHintFormatterByBufferId[bufnr]
+		end
 		local virtText = formatInlayHints(hints, table)
 		-- add extmark for the line
 		vim.api.nvim_buf_set_extmark(bufnr, ns, lnum, 0, {
@@ -137,8 +145,8 @@ end
 
 --------------------------------------------------------------------------------
 
-function M.setInlayHintFormatFunction(formatInlayHintsCallback)
-	formatInlayHints = formatInlayHintsCallback
+function M.setInlayHintFormatFunctions(_formatInlayHintsCallbackTable)
+	formatInlayHintsCallbackTable = _formatInlayHintsCallbackTable
 end
 
 function M.enable()
