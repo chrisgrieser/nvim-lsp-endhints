@@ -7,9 +7,8 @@ local originalDisableHandler = vim.lsp.inlay_hint.enable
 --------------------------------------------------------------------------------
 
 ---@param hints {label: string, col: number, kind: string}[]
----@param _bufnr number
 ---@return {[1]: string, [2]: string}[] virtText for `nvim_buf_set_extmark`, i.e., a table of string tuples (text & highlight group)
-local function defaultHintFormatFunc(hints, _bufnr)
+local function defaultHintFormatFunc(hints)
 	local config = require("lsp-endhints.config").config
 	local padding = (" "):rep(config.label.padding)
 	local marginLeft = (" "):rep(config.label.marginLeft)
@@ -99,7 +98,9 @@ local function changedRefreshHandler(err, result, ctx, _config)
 	-- loop: add hints as extmarks for each line
 	for lnum, hints in pairs(hintLines) do
 		table.sort(hints, function(a, b) return a.col < b.col end)
-		local virtText = (config.hintFormatFunc or defaultHintFormatFunc)(hints, bufnr)
+		local virtText = config.hintFormatFunc
+				and config.hintFormatFunc(hints, bufnr, defaultHintFormatFunc)
+			or defaultHintFormatFunc(hints)
 
 		-- add extmark for the line
 		vim.api.nvim_buf_set_extmark(bufnr, ns, lnum, 0, {

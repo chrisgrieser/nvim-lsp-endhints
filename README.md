@@ -75,7 +75,10 @@ require("lsp-endhints").setup {
 	---Function that overrides how hints are displayed.
 	---expects as output a table for `virt_text` from `nvim_buf_set_extmark`,
 	---that is a table of string tuples (text & highlight group)
-	---@type function(hints: {label: string, col: number, kind: string}[], bufnr: number): {[1]: string, [2]: string}[]
+	---To use filetype-specific formatting, get the filetype via
+	---`vim.bo[bufnr].filetype`, to conditionally use the default formatting 
+	---function, use `defaultHintFormatFunc(hints)`.
+	---@type function(hints: {label: string, col: number, kind: string}[], bufnr: number, defaultHintFormatFunc: func): {[1]: string, [2]: string}[]
 	hintFormatFunc = nil,
 }
 ```
@@ -202,6 +205,22 @@ vim.lsp.config("clangd", {
 			fallbackFlags = { "-std=c++20" },
 		},
 	},
+}
+```
+
+### How to change the formatting just for a specific filetype or LSP?
+Use the `opts.hintFormatFunc` like this:
+
+```lua
+require("lsp-endhints").setup {
+	hintFormatFunc = function(hints, bufnr, defaultHintFormatFunc)
+		local lsp = vim.lsp.get_clients({ bufnr = bufnr })[1].name
+		if lsp == "rust_analyzer" then
+			return "..." -- use your own formatting here
+		else
+			return defaultHintFormatFunc(hints) -- fallback to default formatting
+		end
+	end
 }
 ```
 
