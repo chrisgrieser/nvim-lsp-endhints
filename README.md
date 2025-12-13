@@ -51,6 +51,7 @@ use {
 ## Configuration
 The `.setup()` call is **required**.
 
+<!-- markdownlint-disable line-length type hint is long and needs to be on one line-->
 ```lua
 -- default settings
 require("lsp-endhints").setup {
@@ -78,6 +79,7 @@ require("lsp-endhints").setup {
 	hintFormatFunc = nil,
 }
 ```
+<!-- markdownlint-endable line-length -->
 
 The hints use the default highlight group `LspInlayHint`.
 
