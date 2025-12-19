@@ -4,7 +4,7 @@
 Table of Contents                        *nvim-lsp-endhints-table-of-contents*
 
 1. nvim-lsp-endhints                    |nvim-lsp-endhints-nvim-lsp-endhints-|
-  - Table of Contents |nvim-lsp-endhints-nvim-lsp-endhints--table-of-contents|
+  - Table of contents |nvim-lsp-endhints-nvim-lsp-endhints--table-of-contents|
   - Installation           |nvim-lsp-endhints-nvim-lsp-endhints--installation|
   - Configuration         |nvim-lsp-endhints-nvim-lsp-endhints--configuration|
   - Usage                         |nvim-lsp-endhints-nvim-lsp-endhints--usage|
@@ -17,8 +17,8 @@ Table of Contents                        *nvim-lsp-endhints-table-of-contents*
 
 
 
-Minimalplugin that displays LSP inlay hints at the end of the line, rather than
-within the line.
+Minimal plugin that displays LSP inlay hints at the end of the line, rather
+than within the line.
 
 
 
