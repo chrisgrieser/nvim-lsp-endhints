@@ -18,9 +18,9 @@ within the line.
 - [Usage](#usage)
 - [Background](#background)
 - [FAQ](#faq)
-	* [How to display hints only for the current line?](#how-to-display-hints-only-for-the-current-line)
-	* [Compatibility with other inlay hints plugins](#compatibility-with-other-inlay-hints-plugins)
-	* [How to enable inlay hints for an LSP?](#how-to-enable-inlay-hints-for-an-lsp)
+    - [How to display hints only for the current line?](#how-to-display-hints-only-for-the-current-line)
+    - [Compatibility with other inlay hints plugins](#compatibility-with-other-inlay-hints-plugins)
+    - [How to enable inlay hints for an LSP?](#how-to-enable-inlay-hints-for-an-lsp)
 - [About the author](#about-the-author)
 
 <!-- tocstop -->
@@ -52,6 +52,7 @@ use {
 The `.setup()` call is **required**.
 
 <!-- markdownlint-disable line-length type hint is long and needs to be on one line-->
+
 ```lua
 -- default settings
 require("lsp-endhints").setup {
@@ -82,6 +83,7 @@ require("lsp-endhints").setup {
 	hintFormatFunc = nil,
 }
 ```
+
 <!-- markdownlint-endable line-length -->
 
 The hints use the default highlight group `LspInlayHint`.
