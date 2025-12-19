@@ -26,7 +26,7 @@ within the line.
 <!-- tocstop -->
 
 ## Installation
-**Requirements**
+**Requirements** <!-- rumdl-disable MD033 -->
 - nvim 0.10+
 - LSP that supports inlay hints (`textDocument/inlayHint`)
 - Inlay hints [enabled in the config of that LSP](#how-to-enable-inlay-hints-for-an-lsp)
