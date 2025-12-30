@@ -1,4 +1,4 @@
-# nvim-lsp-endhints 🪧 <!-- rumdl-disable-line MD063 `nvim` lowercased -->
+# nvim-lsp-endhints 🪧 <!-- rumdl-disable-line MD063 -->
 <a href="https://dotfyle.com/plugins/chrisgrieser/nvim-lsp-endhints">
 <img alt="badge" src="https://dotfyle.com/plugins/chrisgrieser/nvim-lsp-endhints/shield"/></a>
 
