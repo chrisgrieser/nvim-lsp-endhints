@@ -1,4 +1,4 @@
-# nvim-lsp-endhints 🪧 <!-- rumdl-disable-line MD063 -->
+# Nvim-lsp-endhints 🪧 <!-- rumdl-disable-line MD063 -->
 <a href="https://dotfyle.com/plugins/chrisgrieser/nvim-lsp-endhints">
 <img alt="badge" src="https://dotfyle.com/plugins/chrisgrieser/nvim-lsp-endhints/shield"/></a>
 
@@ -12,7 +12,6 @@ within the line.
 ## Table of contents
 
 <!-- toc -->
-
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
@@ -21,8 +20,8 @@ within the line.
     - [How to display hints only for the current line?](#how-to-display-hints-only-for-the-current-line)
     - [Compatibility with other inlay hints plugins](#compatibility-with-other-inlay-hints-plugins)
     - [How to enable inlay hints for an LSP?](#how-to-enable-inlay-hints-for-an-lsp)
+    - [How to change the formatting just for a specific filetype or LSP?](#how-to-change-the-formatting-just-for-a-specific-filetype-or-lsp)
 - [About the author](#about-the-author)
-
 <!-- tocstop -->
 
 ## Installation
@@ -97,9 +96,9 @@ same as before. Use them [as described in the Neovim
 documentation](https://neovim.io/doc/user/lsp.html#vim.lsp.inlay_hint.enable())
 to enable/disable/toggle hints manually.
 
-You can switch between displaying inlay hints at the end of the line (this plugin)
-and within the line (Neovim default) by using the `enable`, `disable` and `toggle`
-functions:
+You can switch between displaying inlay hints at the end of the line (this
+plugin) and within the line (Neovim default) by using the `enable`, `disable`
+and `toggle` functions:
 
 ```lua
 -- inlay hints will show at the end of the line (default)
