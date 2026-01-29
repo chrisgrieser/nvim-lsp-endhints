@@ -1,9 +1,9 @@
-*nvim-lsp-endhints.txt*        For Neovim        Last change: 2025 December 30
+*nvim-lsp-endhints.txt*         For Neovim        Last change: 2026 January 29
 
 ==============================================================================
 Table of Contents                        *nvim-lsp-endhints-table-of-contents*
 
-1. nvim-lsp-endhints                    |nvim-lsp-endhints-nvim-lsp-endhints-|
+1. Nvim-lsp-endhints                    |nvim-lsp-endhints-nvim-lsp-endhints-|
   - Table of contents |nvim-lsp-endhints-nvim-lsp-endhints--table-of-contents|
   - Installation           |nvim-lsp-endhints-nvim-lsp-endhints--installation|
   - Configuration         |nvim-lsp-endhints-nvim-lsp-endhints--configuration|
@@ -13,7 +13,7 @@ Table of Contents                        *nvim-lsp-endhints-table-of-contents*
   - About the author   |nvim-lsp-endhints-nvim-lsp-endhints--about-the-author|
 
 ==============================================================================
-1. nvim-lsp-endhints                    *nvim-lsp-endhints-nvim-lsp-endhints-*
+1. Nvim-lsp-endhints                    *nvim-lsp-endhints-nvim-lsp-endhints-*
 
 
 
@@ -35,6 +35,7 @@ TABLE OF CONTENTS     *nvim-lsp-endhints-nvim-lsp-endhints--table-of-contents*
     - |nvim-lsp-endhints-how-to-display-hints-only-for-the-current-line?|
     - |nvim-lsp-endhints-compatibility-with-other-inlay-hints-plugins|
     - |nvim-lsp-endhints-how-to-enable-inlay-hints-for-an-lsp?|
+    - |nvim-lsp-endhints-how-to-change-the-formatting-just-for-a-specific-filetype-or-lsp?|
 - |nvim-lsp-endhints-about-the-author|
 
 
