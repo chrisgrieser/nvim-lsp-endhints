@@ -8,7 +8,7 @@ local ns = vim.api.nvim_create_namespace("lspEndhints")
 vim.iter(vim.lsp.get_clients())
 	:filter(function(client) return client.server_capabilities.inlayHintProvider end)
 	:each(function(client)
-		vim.iter(vim.lsp.get_buffers_by_client_id(client.id))
+		vim.iter(require("lsp-endhints").buffersForClient(client))
 			:each(function(bufnr) vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end)
 	end)
 

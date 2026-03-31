@@ -122,7 +122,7 @@ local function changedDisableHandler(enable, filter)
 		-- if no buffer filter provided, disable in all buffers
 		if not buffers then
 			buffers = vim.iter(vim.lsp.get_clients())
-				:map(function(client) return vim.lsp.get_buffers_by_client_id(client.id) end)
+				:map(function(client) return require("lsp-endhints").buffersForClient(client) end)
 				:flatten()
 				:totable()
 		end
