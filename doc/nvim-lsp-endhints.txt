@@ -1,4 +1,5 @@
-*nvim-lsp-endhints.txt*        For Neovim        Last change: 2026 February 06
+*nvim-lsp-endhints.txt*
+                                       For Neovim    Last change: 2026 June 22
 
 ==============================================================================
 Table of Contents                        *nvim-lsp-endhints-table-of-contents*
